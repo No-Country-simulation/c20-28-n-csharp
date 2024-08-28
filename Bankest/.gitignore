@@ -1,0 +1,10 @@
+﻿# Ignore .vs folder (Visual Studio)
+.vs/
+
+# Otros ejemplos comunes
+bin/
+obj/
+*.user
+*.suo
+*.exe
+*.dll
