@@ -5,4 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login {
+  height: 100vh;
 }/*# sourceMappingURL=Login.css.map */

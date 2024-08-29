@@ -1,10 +1,12 @@
 import React from "react";
 
-function Input(props) {
+function Input({name, type, onChange = () => {}}) {
     return (
-        <div className="form-group">
-            <label htmlFor={props.id}>  </label>
-            <input type={props.type} className="form-control" id={props.id} name={props.name} placeholder={props.placeholder} required={props.required} onChange={props.onChange}/>
+        <div className="mb-3">
+            <label className="text-capitalize" htmlFor={name}>{name}</label>
+            <input type={type} className="form-control text-capitalize" id={name} name={name} placeholder={name} onChange={onChange}/>
         </div>
     );
 }
+
+export default Input;
