@@ -3,12 +3,13 @@ using static Bankest.Util.Util;
 
 namespace Bankest.Models
 {
-    public class Usuario :IdentityUser<Guid>
+    public class Usuario : IdentityUser<Guid>
     {
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
-
+        public string Email { get; set; }
+        public string PasswordHash {  get; set; }
         public ICollection<CuentaBancaria> CuentasBancarias { get; set; }
         public ICollection<Notificacion> Notificaciones { get; set; }
         public ICollection<VerificacionDosPasos> VerificacionesDosPasos { get; set; }
