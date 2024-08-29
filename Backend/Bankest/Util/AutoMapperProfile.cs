@@ -8,7 +8,7 @@ namespace Bankest.Util
     {
         public AutoMapperProfile() 
         {
-            CreateMap<Usuario, loginRequestDto>().ReverseMap();
+            //CreateMap<Usuario, loginRequestDto>().ReverseMap();
         }
         
     }

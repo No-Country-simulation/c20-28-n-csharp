@@ -27,50 +27,52 @@ namespace Bankest.Services.Implementation
             _configuration = configuration;
         }
 
-        public async Task<loginResponseDto> GetUsuarioByPassword(loginRequestDto user)
-        {
-            try
-            { 
-                Usuario? encontrado = new Usuario();
-                encontrado = await _dbContext.Usuarios.Where(u => u.Email == user.user && u.PasswordHash == user.password).FirstOrDefaultAsync();
-                loginRequestDto usuarioMap = _mapper.Map<loginRequestDto>(encontrado);
-                loginResponseDto response = new loginResponseDto();
-                if (encontrado != null) 
-                {
-                    var claims = new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub,_configuration["Jwt:Subject"]),
-                        new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                        new Claim("Id", encontrado.Id.ToString()),
-                        new Claim("Email" , encontrado.Email.ToString()),
+       
 
-                    };
+        //public async Task<loginResponseDto> GetUsuarioByPassword(loginRequestDto user)
+        //{
+        //    try
+        //    { 
+        //        Usuario? encontrado = new Usuario();
+        //        encontrado = await _dbContext.Usuarios.Where(u => u.Email == user.user && u.PasswordHash == user.password).FirstOrDefaultAsync();
+        //        loginRequestDto usuarioMap = _mapper.Map<loginRequestDto>(encontrado);
+        //        loginResponseDto response = new loginResponseDto();
+        //        if (encontrado != null) 
+        //        {
+        //            var claims = new[]
+        //            {
+        //                new Claim(JwtRegisteredClaimNames.Sub,_configuration["Jwt:Subject"]),
+        //                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+        //                new Claim("Id", encontrado.Id.ToString()),
+        //                new Claim("Email" , encontrado.Email.ToString()),
 
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
-                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var token = new JwtSecurityToken(
-                        _configuration["Jwt:Issuer"],
-                        _configuration["Jwt:Audience"],
-                        claims,
-                        expires: DateTime.UtcNow.AddMinutes(60),
-                        signingCredentials: signIn
-                        );
+        //            };
 
-                    string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+        //            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
+        //            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        //            var token = new JwtSecurityToken(
+        //                _configuration["Jwt:Issuer"],
+        //                _configuration["Jwt:Audience"],
+        //                claims,
+        //                expires: DateTime.UtcNow.AddMinutes(60),
+        //                signingCredentials: signIn
+        //                );
 
-                response.Response = "logueado" ;
-                response.token = tokenValue;
-                }
-                else
-                {
-                    response.Response = "Sin exito";
-                    response.token = "";
-                }
+        //            string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return response;
-            }
-            catch (Exception ex) { throw ex; }
-        }
+        //        response.Response = "logueado" ;
+        //        response.token = tokenValue;
+        //        }
+        //        else
+        //        {
+        //            response.Response = "Sin exito";
+        //            response.token = "";
+        //        }
+
+        //        return response;
+        //    }
+        //    catch (Exception ex) { throw ex; }
+        //}
 
     }
 }

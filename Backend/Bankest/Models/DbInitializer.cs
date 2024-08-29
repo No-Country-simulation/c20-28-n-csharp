@@ -33,8 +33,10 @@ public static class DbInitializer
                 Email = "juan.perez@example.com",
                 NormalizedEmail = "JUAN.PEREZ@EXAMPLE.COM",
                 EmailConfirmed = true,
-                Nombre = "Juan Perez",
-                Telefono = "123456789",
+                Nombre = "Juan",
+                PhoneNumber = "123456789",
+                ApellidoPaterno = "Perez",
+                ApellidoMaterno = "Perez",
                 TipoUsuario = TipoUsuario.Cliente
             };
 
@@ -45,8 +47,10 @@ public static class DbInitializer
                 Email = "ana.gomez@example.com",
                 NormalizedEmail = "ANA.GOMEZ@EXAMPLE.COM",
                 EmailConfirmed = true,
-                Nombre = "Ana Gómez",
-                Telefono = "987654321",
+                Nombre = "Ana",
+                PhoneNumber = "987654321",
+                ApellidoPaterno = "Gómez",
+                ApellidoMaterno = "Gómez",
                 TipoUsuario = TipoUsuario.Empresa
             };
 

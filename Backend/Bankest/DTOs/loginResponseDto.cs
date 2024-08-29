@@ -1,8 +1,8 @@
 ﻿namespace Bankest.DTOs
 {
-    public class loginResponseDto
+    public class LoginResponseDto
     {
-        public string token {  get; set; }
+        public string Token {  get; set; }
         public string Response { get; set; }
     }
 }

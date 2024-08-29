@@ -5,6 +5,6 @@ namespace Bankest.Services.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<loginResponseDto> GetUsuarioByPassword(loginRequestDto user);
+        //Task<LoginResponseDto> GetUsuarioByPassword(LoginResponseDto user);
     }
 }
