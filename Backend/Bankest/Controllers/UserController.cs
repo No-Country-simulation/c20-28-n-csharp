@@ -11,62 +11,70 @@ using static Bankest.Util.Util;
 
 namespace Bankest.Controllers
 {
-    [Route("api/[controller]")]
+
+    [Route("api/User")]
     [ApiController]
-    [Produces("application/json")]
-    public class UserController:ControllerBase
+   // [Produces("application/json")]
+    public class UserController : ControllerBase
     {
         private readonly IUsuarioService _userService;
-        private readonly ILogger<UserController> _logger; //Se agrego en caso que luego lo queramos usar
+        private readonly ILogger<UserController> _logger; 
         private readonly IConfiguration _configuration;
-        private readonly UserManager<Usuario> _userManager; // Metodo que nos provee identity para poder trabajar con el manejo de usuarior
-        private readonly SignInManager<Usuario> _signInManager; //metodos que nos deja como su nombre dice ser el inicio de sesion tambien nos lo provee identity y se usan de usuario porque este hereda de "IdentityUser<Guid>"
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
         private readonly TokenService _tokenServices;
 
         public UserController(IUsuarioService userService, IConfiguration configuration, UserManager<Usuario> userManager
-                                ,SignInManager<Usuario> signInManager, TokenService tokenServices)
+                                , SignInManager<Usuario> signInManager, TokenService tokenServices, ILogger<UserController> logger)
         {
             _userService = userService;
             _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenServices = tokenServices;
-
+            _logger = logger; 
         }
-
-        //[HttpPost]
-        //public IActionResult Login(loginRequestDto userLogin)
-        //{
-        //    return Ok("User Login");
-        //}
-
-        //[HttpPost("Usuario")]
-        //public async Task<IActionResult> GetAuthorization([FromBody]loginRequestDto user)
-        //{
-        //    return Ok(await _userService.GetUsuarioByPassword(user).ConfigureAwait(false));
-        //}
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequestDto)
         {
+            _logger.LogInformation("Intento de inicio de sesión para el usuario {UserName}", loginRequestDto.UserName);
+
             var user = await _userManager.FindByNameAsync(loginRequestDto.UserName);
             if (user == null)
             {
+                _logger.LogWarning("El usuario {UserName} no fue encontrado.", loginRequestDto.UserName);
                 return Unauthorized("Invalid username or password.");
             }
 
             if (await _userManager.CheckPasswordAsync(user, loginRequestDto.Password))
             {
+                _logger.LogInformation("El usuario {UserName} se autenticó correctamente.", user.UserName);
                 var token = await _tokenServices.GenerateToken(user);
                 return Ok(new { token });
             }
 
+            _logger.LogWarning("El usuario {UserName} proporcionó una contraseña incorrecta.", user.UserName);
             return Unauthorized("Invalid username or password.");
-
         }
+
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
+            _logger.LogInformation("Intento de registro para el usuario {UserName}", registerDto.UserName);
+
+            if (await _userManager.FindByNameAsync(registerDto.UserName) != null)
+            {
+                _logger.LogWarning("El nombre de usuario {UserName} ya está en uso.", registerDto.UserName);
+                return BadRequest("El nombre de usuario ya está en uso.");
+            }
+            //verifica que no haya dos correos igual el de arriba hace lo msimo
+            if (await _userManager.FindByEmailAsync(registerDto.UserName) != null)
+            {
+                _logger.LogWarning("El correo electrónico {Email} ya está en uso.", registerDto.UserName);
+                return BadRequest("El correo electrónico ya está en uso.");
+            }
+
             var user = new Usuario
             {
                 Nombre = registerDto.Nombre,
@@ -80,9 +88,9 @@ namespace Bankest.Controllers
                 EmailConfirmed = true
             };
 
-            // Verifica que la contraseña no esté en blanco
             if (string.IsNullOrEmpty(registerDto.Password))
             {
+                _logger.LogWarning("El usuario {UserName} intentó registrarse con una contraseña en blanco.", registerDto.UserName);
                 return BadRequest("La contraseña no puede estar en blanco.");
             }
 
@@ -92,72 +100,102 @@ namespace Bankest.Controllers
             {
                 foreach (var item in result.Errors)
                 {
+                    _logger.LogError("Error al crear el usuario {UserName}: {Error}", registerDto.UserName, item.Description);
                     ModelState.AddModelError(item.Code, item.Description);
                 }
-
                 return ValidationProblem();
             }
 
+            var roleResult = await _userManager.AddToRoleAsync(user, "Cliente");
+
+            if (!roleResult.Succeeded)
+            {
+                foreach (var item in roleResult.Errors)
+                {
+                    _logger.LogError("Error al asignar el rol al usuario {UserName}: {Error}", registerDto.UserName, item.Description);
+                    ModelState.AddModelError(item.Code, item.Description);
+                }
+                return ValidationProblem();
+            }
+
+            _logger.LogInformation("El usuario {UserName} se registró y se le asignó el rol de Cliente.", user.UserName);
             return StatusCode(201);
         }
 
-
-        [Authorize]
-        [HttpGet("current-user")]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("current")]
+        public async Task<ActionResult<UsuarioDto>> GetCurrentUser()
         {
-            var username = User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(username);
+            _logger.LogInformation("Obteniendo información del usuario actual.");
+
+            if (User?.Identity?.Name == null)
+            {
+                _logger.LogWarning("El usuario no está autenticado.");
+                return Unauthorized();
+            }
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (user == null)
             {
-                return NotFound("Usuario no encontrado.");
+                _logger.LogWarning("No se pudo encontrar el usuario actual con nombre: {UserName}", User.Identity.Name);
+                return Unauthorized();
             }
 
-            return new UserDto
+            _logger.LogInformation("Usuario {UserName} encontrado: {Email}", user.UserName, user.Email);
+
+            var userDto = new UsuarioDto
             {
+                UserName = user.UserName,
                 Email = user.Email,
-                Token = await _tokenServices.GenerateToken(user),
+                Nombre = user.Nombre,
+                ApellidoPaterno = user.ApellidoPaterno,
+                ApellidoMaterno = user.ApellidoMaterno,
+                PhoneNumber = user.PhoneNumber
             };
+
+            return Ok(userDto);
         }
 
-        [HttpPost("assign-role")]
-        // [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> AssignRole(string userId, string role)
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) return NotFound("Usuario no encontrado.");
+            _logger.LogInformation("Intento de cambio de contraseña para el usuario {UserName}", User.Identity.Name);
 
-            // Asignar el rol al usuario
-            var result = await _userManager.AddToRoleAsync(user, role);
-            if (!result.Succeeded) return BadRequest(result.Errors);
-
-            // Actualizar el campo TipoUsuario en el modelo
-            switch (role)
+            // Verifica que el usuario esté autenticado
+            if (User?.Identity?.Name == null)
             {
-                case "Cliente":
-                    user.TipoUsuario = TipoUsuario.Cliente;
-                    break;
-                case "Empresa":
-                    user.TipoUsuario = TipoUsuario.Empresa;
-                    break;
-                case "Administrador":
-                    user.TipoUsuario = TipoUsuario.Administrador;
-                    break;
-                default:
-                    return BadRequest("Rol no válido.");
+                _logger.LogWarning("El usuario no está autenticado.");
+                return Unauthorized();
             }
 
-            // Guardar los cambios en la base de datos
-            var updateResult = await _userManager.UpdateAsync(user);
-            if (!updateResult.Succeeded) return BadRequest(updateResult.Errors);
+            // Obtén el usuario autenticado
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                _logger.LogWarning("No se pudo encontrar el usuario actual con nombre: {UserName}", User.Identity.Name);
+                return Unauthorized();
+            }
 
-            return Ok("Rol asignado y tipo de usuario actualizado exitosamente.");
+            // Cambia la contraseña del usuario
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
+
+            // Verifica si el cambio de contraseña fue exitoso
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    _logger.LogError("Error al cambiar la contraseña del usuario {UserName}: {Error}", user.UserName, error.Description);
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+                return ValidationProblem();
+            }
+
+            _logger.LogInformation("La contraseña del usuario {UserName} se cambió exitosamente.", user.UserName);
+            return Ok("La contraseña se ha cambiado exitosamente.");
         }
-
-
-
-
 
     }
 }

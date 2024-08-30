@@ -42,31 +42,38 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-//builder.Services.AddIdentityCore<Usuario>(opt =>
-//{
-//    opt.User.RequireUniqueEmail = true;
-//})
-    
-//    .AddEntityFrameworkStores<StoreContext>();
+// Configura los servicios de autenticación
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options => {
+    // Verificación adicional de la clave JWT para evitar que sea nula o vacía
+    var jwtKey = builder.Configuration["Jwt:key"];
+    if (string.IsNullOrEmpty(jwtKey))
+    {
+        throw new InvalidOperationException("JWT key is missing or empty in configuration.");
+    }
 
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
-        ValidateIssuerSigningKey = true, 
+        ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]))
-    }; 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
 });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<StoreContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
@@ -76,6 +83,10 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddIdentity<Usuario, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<StoreContext>()
     .AddDefaultTokenProviders();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 var app = builder.Build();
 
@@ -90,8 +101,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -110,6 +121,5 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Ocurrió un problema durante la migración o inicialización de la base de datos.");
     }
 }
-
 
 app.Run();

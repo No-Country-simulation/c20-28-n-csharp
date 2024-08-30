@@ -36,13 +36,14 @@ namespace Bankest.Services.Token
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: null, //Emisor del token
-                audience: null, //audiencia del token
-                claims: claims, //Claims incluidos en el token
-                expires: DateTime.Now.AddMinutes(15), //Tiempo de expiracion del token
+                issuer: _configuration["Jwt:Issuer"], // Emisor del token
+                audience: _configuration["Jwt:Audience"], // Audiencia del token
+                claims: claims, // Claims incluidos en el token
+                expires: DateTime.Now.AddMinutes(15), // Tiempo de expiración del token
                 signingCredentials: creds
+            );
 
-                );
+
             //Devolver el Token JWt como una cadena
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
