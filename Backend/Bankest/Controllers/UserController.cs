@@ -1,4 +1,5 @@
-﻿using Bankest.DTOs;
+﻿using System.Threading.Tasks;
+using Bankest.DTOs;
 using Bankest.Models;
 using Bankest.Services.Implementation;
 using Bankest.Services.Interfaces;
@@ -6,6 +7,8 @@ using Bankest.Services.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using static Bankest.Util.Util;
 

@@ -1,4 +1,6 @@
-﻿namespace Bankest.Models
+﻿using System;
+
+namespace Bankest.Models
 {
     public class DispositivoConfiable
     {

@@ -1,3 +1,4 @@
+using System;
 using Bankest.Models;
 using Bankest.Services.Implementation;
 using Bankest.Services.Interfaces;
@@ -10,6 +11,16 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Data;
 using System.Text;
+using Bankest.Services.Implementation.Cliente;
+using Bankest.Services.Interfaces.ICliente;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration.Design;
+using Bankest.Services.Interfaces.ITransacciones;
+using Bankest.Services.Implementation.Transacciones;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +87,8 @@ builder.Services.AddDbContext<StoreContext>(options =>
 
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<ITransaccionService, TransaccionesService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -87,6 +100,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole<Guid>>()
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

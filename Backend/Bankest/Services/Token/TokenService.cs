@@ -1,9 +1,13 @@
-﻿using Bankest.Models;
+﻿using System;
+using System.Collections.Generic;
+using Bankest.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Bankest.Services.Token
 {
@@ -22,6 +26,7 @@ namespace Bankest.Services.Token
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
             };
@@ -39,9 +44,10 @@ namespace Bankest.Services.Token
                 issuer: _configuration["Jwt:Issuer"], // Emisor del token
                 audience: _configuration["Jwt:Audience"], // Audiencia del token
                 claims: claims, // Claims incluidos en el token
-                expires: DateTime.Now.AddMinutes(15), // Tiempo de expiración del token
+                expires: DateTime.Now.AddMinutes(15), // Tiempo de expiración del token  
                 signingCredentials: creds
             );
+            
 
 
             //Devolver el Token JWt como una cadena
