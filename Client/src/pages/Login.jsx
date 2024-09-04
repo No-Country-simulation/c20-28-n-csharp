@@ -1,6 +1,6 @@
 import React from "react";
-import Logo from "../Components/Logo";
-import InputField from "../Components/Input-field";
+import Logo from "../Components/Logo/Logo";
+import InputField from "../Components/Inputs/Input-field";
 import "../styles/Login.css";
 
 function Login() {
