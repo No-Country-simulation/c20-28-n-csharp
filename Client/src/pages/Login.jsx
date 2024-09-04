@@ -15,6 +15,29 @@ function Login() {
             [e.target.name]: e.target.value
         });
     }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try{
+             const res = await fetch("api_url/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(text)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                // manejar esto (como ni idea xd)
+                console.log("login exitoso", data);
+            } 
+            else {
+                console.log("login fallido", data);
+            }
+        }
+        catch (error) {
+            console.log("error", error);
+        }
+    }
     return (
         <div className="row login">   
             <section className="d-flex flex-column align-items-center justify-content-center col-md-6">
@@ -22,7 +45,7 @@ function Login() {
                     <Logo/>
                 </div>
                 <h2 className="fs-3 text-secondary">Inicio Sesión</h2>
-                <form action="" className="row">
+                <form action="" className="row" onSubmit={handleSubmit}>
                 <InputField name = "dni" type = "number" value={text.dni} onChange={handleChange}/>
                 <InputField name = "usuario" type = "text" value={text.usuario} onChange={handleChange} />
                 <InputField name = "clave" type = "password" value={text.clave} onChange={handleChange}/>
