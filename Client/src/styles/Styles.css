@@ -11,4 +11,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login, .register {
+  height: 100vh;
+  position: relative;
+}
+.login .logo, .register .logo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.login .login form, .register .login form {
+  max-width: 20rem;
+}
+.login form, .register form {
+  position: relative;
+}
+.login form section .col-6 .input-field label, .register form section .col-6 .input-field label {
+  transform: translateX(0.5em) translateY(0.7em);
+  padding: 0 0.5em;
+  color: purple;
+}
+.login form section .col-6 .input-field .login label, .register form section .col-6 .input-field .login label {
+  background-color: white;
+}
+.login form section .col-6 .input-field .register label, .register form section .col-6 .input-field .register label {
+  background-color: #6c757d;
+}
+.login form section .col-6 .input-field .register, .register form section .col-6 .input-field .register {
+  background-color: #6c757d;
 }/*# sourceMappingURL=Styles.css.map */
