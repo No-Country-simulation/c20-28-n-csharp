@@ -21,12 +21,26 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.Web.CodeGeneration.Design;
 using Bankest.Services.Interfaces.ITransacciones;
 using Bankest.Services.Implementation.Transacciones;
+using Bankest.Services.Interfaces.IInversiones;
 
 var builder = WebApplication.CreateBuilder(args);
-
+// Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NuevaPolitica", app =>
+    {
+        app.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
+});
 // Add services to the container.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -89,6 +103,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ITransaccionService, TransaccionesService>();
+builder.Services.AddScoped<IInversiones, InversionesServicio>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -110,7 +125,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+// Aplica la política de CORS
+app.UseCors("NuevaPolitica");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -44,7 +44,7 @@ namespace Bankest.Services.Token
                 issuer: _configuration["Jwt:Issuer"], // Emisor del token
                 audience: _configuration["Jwt:Audience"], // Audiencia del token
                 claims: claims, // Claims incluidos en el token
-                expires: DateTime.Now.AddMinutes(15), // Tiempo de expiración del token  
+                expires: DateTime.Now.AddDays(15), // Tiempo de expiración del token  
                 signingCredentials: creds
             );
             

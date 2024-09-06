@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Bankest.DTOs;
+using Bankest.DTOs.UserDTO;
 using Bankest.Models;
 using Bankest.Services.Implementation;
 using Bankest.Services.Interfaces;
@@ -149,6 +151,7 @@ namespace Bankest.Controllers
 
             var userDto = new UsuarioDto
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 Nombre = user.Nombre,
@@ -199,6 +202,55 @@ namespace Bankest.Controllers
             _logger.LogInformation("La contraseña del usuario {UserName} se cambió exitosamente.", user.UserName);
             return Ok("La contraseña se ha cambiado exitosamente.");
         }
+
+        [HttpPut("perfil")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> ActualizarPerfil(ActualizarPerfilDto perfilDto)
+        {
+            var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return Unauthorized("Usuario no autenticado.");
+            }
+
+            var usuario = await _userManager.FindByIdAsync(userId);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+
+            // Actualizar solo los campos no nulos
+            if (!string.IsNullOrEmpty(perfilDto.Nombre))
+            {
+                usuario.Nombre = perfilDto.Nombre;
+            }
+
+            if (!string.IsNullOrEmpty(perfilDto.ApellidoPaterno))
+            {
+                usuario.ApellidoPaterno = perfilDto.ApellidoPaterno;
+            }
+
+            if (!string.IsNullOrEmpty(perfilDto.ApellidoMaterno))
+            {
+                usuario.ApellidoMaterno = perfilDto.ApellidoMaterno;
+            }
+
+            if (!string.IsNullOrEmpty(perfilDto.Telefono))
+            {
+                usuario.PhoneNumber = perfilDto.Telefono;
+            }
+
+            var result = await _userManager.UpdateAsync(usuario);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok("Perfil actualizado correctamente.");
+        }
+
+
 
     }
 }

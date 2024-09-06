@@ -24,21 +24,48 @@ namespace Bankest.Services.Implementation.Cliente
 
 
 
-        public async Task<Usuario?> ObtenerdatosClienteAsync(Guid clientId)
+        public async Task<UsuarioDto?> ObtenerdatosClienteAsync(Guid clientId)
         {
-            //try
-            //{
-            //    //var cliente = await _storeContext.CuentasBancarias.Include(x => x.Id).Where(u)
-            //    return cliente;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Fallo");
-            //}
+            try
+            {
+                // Obtener el usuario por su ID e incluir información relacionada como cuentas bancarias
+                var cliente = await _storeContext.Usuarios
+                    .Include(u => u.CuentasBancarias)  // Incluir las cuentas bancarias asociadas
+                    .FirstOrDefaultAsync(u => u.Id == clientId);
 
-            throw new NotImplementedException();
+                if (cliente == null)
+                {
+                    throw new Exception("Cliente no encontrado.");
+                }
 
+                // Mapeo de Usuario a UsuarioDto
+                var response = new UsuarioDto
+                {
+                    Id = cliente.Id,
+                    Nombre = cliente.Nombre,
+                    ApellidoPaterno = cliente.ApellidoPaterno,
+                    ApellidoMaterno = cliente.ApellidoMaterno,
+                    Email = cliente.Email,
+                    PhoneNumber = cliente.PhoneNumber,
+                    CuentasBancarias = cliente.CuentasBancarias.Select(c => new CuentaBancariaDto
+                    {
+                        Id = c.Id,
+                        NumeroCuenta = c.NumeroCuenta,
+                        Saldo = c.Saldo,
+                        //TipoCuenta = c.TipoCuenta()  // Si `TipoCuenta` es un enum, conviértelo a string
+                    }).ToList()
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones en caso de fallo
+                throw new Exception("Ocurrió un error al obtener los datos del cliente.");
+            }
         }
+
+
 
         public async Task<List<CuentaBancariaDto>> ObtenerCuentasBancariasAsync(string userId)
         {

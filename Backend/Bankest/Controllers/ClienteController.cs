@@ -28,7 +28,7 @@ namespace Bankest.Controllers
 
 
         [HttpGet("{idUsuario:guid}", Name = "GetCliente")]
-        public async Task<ActionResult<Usuario>> GetDatosUsuarioAsync(Guid idUsuario)
+        public async Task<ActionResult<UsuarioDto>> GetDatosUsuarioAsync(Guid idUsuario)
         {
             var usuario = _cliente.ObtenerdatosClienteAsync(idUsuario);
             return Ok(usuario);

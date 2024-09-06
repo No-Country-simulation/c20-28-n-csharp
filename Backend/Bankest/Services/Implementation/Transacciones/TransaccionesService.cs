@@ -13,12 +13,11 @@ namespace Bankest.Services.Implementation.Transacciones
         {
             _storeContext = storeContext;
         }
-        //tengo que corregir ahh
         public async Task<bool> RealizarTransferenciaAsync(TransferenciaDto transferenciaDto, Guid usuarioId)
         {
             // Buscar la cuenta de origen del usuario autenticado
             var cuentaOrigen = await _storeContext.CuentasBancarias
-                .FirstOrDefaultAsync(c => c.Id == transferenciaDto && c.UsuarioId == usuarioId);
+                .FirstOrDefaultAsync(c => c.Id == transferenciaDto.CuentaOrigenId && c.UsuarioId == usuarioId);
 
             if (cuentaOrigen == null)
             {
@@ -34,14 +33,14 @@ namespace Bankest.Services.Implementation.Transacciones
                 throw new InvalidOperationException("La cuenta de destino no existe.");
             }
 
-            // Validar el nombre y apellidos del destinatario
-            if (!string.IsNullOrEmpty(transferenciaDto.NombreDestinatario) &&
-                (cuentaDestino.Usuario.Nombre != transferenciaDto.NombreDestinatario ||
-                 cuentaDestino.Usuario.ApellidoPaterno != transferenciaDto.ApellidoPaternoDestinatario ||
-                 cuentaDestino.Usuario.ApellidoMaterno != transferenciaDto.ApellidoMaternoDestinatario))
-            {
-                throw new InvalidOperationException("El nombre o apellidos del destinatario no coinciden con los datos de la cuenta.");
-            }
+            //// Validar el nombre y apellidos del destinatario (si están presentes)
+            //if (!string.IsNullOrEmpty(transferenciaDto.NombreDestinatario) &&
+            //    (cuentaDestino.Usuario.Nombre != transferenciaDto.NombreDestinatario ||
+            //     cuentaDestino.Usuario.ApellidoPaterno != transferenciaDto.ApellidoPaternoDestinatario ||
+            //     cuentaDestino.Usuario.ApellidoMaterno != transferenciaDto.ApellidoMaternoDestinatario))
+            //{
+            //    throw new InvalidOperationException("El nombre o apellidos del destinatario no coinciden con los datos de la cuenta.");
+            //}
 
             // Validar saldo suficiente en la cuenta de origen
             if (cuentaOrigen.Saldo < transferenciaDto.Monto)
@@ -62,7 +61,12 @@ namespace Bankest.Services.Implementation.Transacciones
                 TipoTransaccion = TipoTransaccion.Transferencia,
                 CuentaOrigenId = cuentaOrigen.Id,
                 CuentaDestinoId = cuentaDestino.Id,
-               // Mensaje = transferenciaDto.Mensaje // Mensaje opcional
+                //NombreDestinatario = transferenciaDto.NombreDestinatario,
+                //ApellidoPaternoDestinatario = transferenciaDto.ApellidoPaternoDestinatario,
+                //ApellidoMaternoDestinatario = transferenciaDto.ApellidoMaternoDestinatario,
+                //CorreoDestinatario = transferenciaDto.CorreoDestinatario,
+                //TelefonoDestinatario = transferenciaDto.TelefonoDestinatario,
+                //Mensaje = transferenciaDto.Mensaje // Mensaje opcional
             };
 
             _storeContext.Transacciones.Add(transaccion);
@@ -72,6 +76,7 @@ namespace Bankest.Services.Implementation.Transacciones
 
             return true;
         }
+
 
 
         public async Task<List<Transaccion>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin)
@@ -104,7 +109,6 @@ namespace Bankest.Services.Implementation.Transacciones
                 //Mensaje = transaccion.Mensaje
             };
         }
-
 
 
     }
