@@ -14,12 +14,40 @@ export function Register() {
     validarClave: "",
   });
 
-  //se encarga de validad el login
+  //se encarga de validad 
   const handleChange = (e) => {
     setText({
       ...text,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Consumimos la API
+      const res = await fetch("http://localhost:5210", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(text),
+      });
+      
+      //notifica si hay un error en el servidor
+      const responseText = await res.text();
+      if (!res.ok) {
+        console.error("Error de servidor:", responseText);
+        return;
+      }
+
+      //valida si nuestro registro fue exitoso
+      const data = responseText ? JSON.parse(responseText) : {};
+      console.log("Registro exitoso", data);
+      localStorage.setItem("token", data.token);
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
   
   return (
@@ -30,7 +58,7 @@ export function Register() {
             <Link to="/" className="navbar-brand">
               <div className="circle mx-2 bg-light text-body-tertiary"></div>
             </Link>
-
+                <h1>Registro</h1>
             <Link to="/login" className="nav-link ms-auto ">
               &lt; Login
             </Link>
@@ -53,6 +81,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+
             <div className="col-6">
               <InputField
                 name="Numero de Teléfono"
@@ -61,6 +90,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+
             <div className="col-6">
               <InputField
                 name="Nombre Completo"
@@ -69,6 +99,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+
             <div className="col-6">
               <InputField
                 name="Contraseña"
@@ -77,6 +108,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+
             <div className="col-6">
               <InputField
                 name="Correo electrónico"
@@ -85,6 +117,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+
             <div className="col-6">
               <InputField
                 name="Repetir contraseña"
@@ -93,6 +126,7 @@ export function Register() {
                 onChange={setText}
               />
             </div>
+            
           </section>
           <section className="d-flex flex-column align-items-center justify-content-center">
             <div className="form-check mx-2">
@@ -120,3 +154,4 @@ export function Register() {
     </>
   );
 }
+

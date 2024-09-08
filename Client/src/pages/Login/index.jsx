@@ -22,15 +22,13 @@ function Login() {
     e.preventDefault();
     try {
       //consumimos la API
-      const res = await fetch("http://localhost:5210      ",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(text),
-        }
-      );
+      const res = await fetch("http://localhost:5210", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(text),
+      });
       // Obtener la respuesta en texto
       const responseText = await res.text();
       if (!res.ok) {
@@ -98,7 +96,6 @@ function Login() {
         </form>
 
         <Link to="/Recuperar"
-          href="#"
           className="link-underline link-underline-opacity-0 link-secondary mt-2"
         >
           Olvidaste o bloqueaste tu clave o usuario?
