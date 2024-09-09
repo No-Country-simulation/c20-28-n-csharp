@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Bankest.DTOs;
 using Bankest.Models;
-using Bankest.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +9,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Bankest.Services.Interfaces.IUsuarios;
 
 
-namespace Bankest.Services.Implementation
+namespace Bankest.Services.Implementation.User
 {
     public class UsuarioService : IUsuarioService
     {
@@ -21,14 +21,14 @@ namespace Bankest.Services.Implementation
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public UsuarioService(StoreContext dbContext, IMapper mapper , IConfiguration configuration)
+        public UsuarioService(StoreContext dbContext, IMapper mapper, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _configuration = configuration;
         }
 
-       
+
 
         //public async Task<loginResponseDto> GetUsuarioByPassword(loginRequestDto user)
         //{

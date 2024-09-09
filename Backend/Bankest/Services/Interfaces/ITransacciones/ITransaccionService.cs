@@ -7,7 +7,7 @@ namespace Bankest.Services.Interfaces.ITransacciones
     public interface ITransaccionService
     {
         Task<bool> RealizarTransferenciaAsync(TransferenciaDto transferenciaDto, Guid usuarioId);
-        Task<List<Transaccion>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin);
+        Task<List<TransaccionDto>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin);
         Task<DetalleTransaccionDto> ObtenerDetallesTransaccionAsync(Guid transaccionId);
     }
 }

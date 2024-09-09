@@ -1,4 +1,4 @@
-﻿namespace Bankest.Services.Implementation.Transacciones
+﻿namespace Bankest.DTOs.TransaccionesDTO
 {
     public class HistorialTransaccionesDto
     {

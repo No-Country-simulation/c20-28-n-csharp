@@ -1,4 +1,4 @@
-﻿using Bankest.DTOs;
+﻿using Bankest.DTOs.InversionesDTO;
 using Bankest.Models;
 using Bankest.Services.Interfaces.IInversiones;
 using Microsoft.AspNetCore.Authorization;
@@ -63,10 +63,12 @@ namespace Bankest.Controllers
                 UsuarioId = Guid.Parse(userId)
             };
 
-            var result = await _inversiones.CrearInversionAsync(nuevaInversion);
+            // Llamar al servicio y pasar el ID de la cuenta de origen
+            var result = await _inversiones.CrearInversionAsync(nuevaInversion, inversionDto.CuentaId);
 
             return Ok(result);
         }
+
 
 
         [HttpDelete("inversiones/{id}")]

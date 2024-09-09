@@ -16,5 +16,7 @@ namespace Bankest.Models
         public ICollection<Transaccion> TransaccionesOrigen { get; set; }
         public ICollection<Transaccion> TransaccionesDestino { get; set; }
         public ICollection<CalendarioPago> CalendariosPago { get; set; }
+        // Nueva propiedad para rastrear cuándo se aplicaron los intereses por última vez
+        public DateTime UltimaFechaCalculoInteres { get; set; }
     }
 }

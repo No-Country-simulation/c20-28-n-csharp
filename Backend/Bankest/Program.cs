@@ -1,7 +1,5 @@
 using System;
 using Bankest.Models;
-using Bankest.Services.Implementation;
-using Bankest.Services.Interfaces;
 using Bankest.Services.Token;
 using Bankest.Util;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,8 +20,16 @@ using Microsoft.VisualStudio.Web.CodeGeneration.Design;
 using Bankest.Services.Interfaces.ITransacciones;
 using Bankest.Services.Implementation.Transacciones;
 using Bankest.Services.Interfaces.IInversiones;
+using Bankest.Services.Implementation.Inversiones;
+using Bankest.Services.Implementation.User;
+using Bankest.Services.Interfaces.IUsuarios;
+using Bankest.Services.Interfaces.IPagos;
+using Bankest.Services.Implementation.Pagos;
+using Bankest.Services.Interfaces;
+using Bankest.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Configuración de CORS
 builder.Services.AddCors(options =>
 {
@@ -34,15 +40,14 @@ builder.Services.AddCors(options =>
            .AllowAnyMethod();
     });
 });
+
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
+builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+//Configuracion de Swagger para que utilice el Bearer token
 builder.Services.AddSwaggerGen(c =>
 {
     // Include 'SecurityScheme' to use JWT Authentication
@@ -104,6 +109,9 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ITransaccionService, TransaccionesService>();
 builder.Services.AddScoped<IInversiones, InversionesServicio>();
+builder.Services.AddScoped<IPagoService, PagosService>();
+builder.Services.AddScoped<IDispositivoCOnfiable, DispositivoCOnfiableService>();
+builder.Services.AddScoped<InteresService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -125,6 +133,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 // Aplica la política de CORS
 app.UseCors("NuevaPolitica");
 app.UseHttpsRedirection();

@@ -59,6 +59,21 @@ namespace Bankest.Controllers
 
         }
 
+        [HttpGet("cuenta/{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> ObtenerCuenta(Guid id)
+        {
+            var cuenta = await _cliente.ObtenerCuentaAsync(id);
+
+            if (cuenta == null)
+            {
+                return NotFound("Cuenta no encontrada.");
+            }
+
+            return Ok(cuenta);
+        }
+
+
 
         [HttpPost("CreaCuentaBancaria")]
         [Authorize(AuthenticationSchemes = "Bearer")]

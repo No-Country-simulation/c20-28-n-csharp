@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bankest.Controllers;
 using Bankest.DTOs.Cliente;
 using Bankest.Models;
+using Bankest.Services.Implementation.Transacciones;
 using Bankest.Services.Interfaces.ICliente;
 using Microsoft.EntityFrameworkCore;
 using static Bankest.Util.Util;
@@ -15,11 +16,13 @@ namespace Bankest.Services.Implementation.Cliente
     {
         private readonly StoreContext _storeContext;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly InteresService _interesService;
 
-        public ClienteService(StoreContext storeContext, IHttpContextAccessor contextAccessor)
+        public ClienteService(StoreContext storeContext, IHttpContextAccessor contextAccessor, InteresService interesService)
         {
             _storeContext = storeContext;
             _contextAccessor = contextAccessor;
+            _interesService = interesService;
         }
 
 
@@ -65,7 +68,23 @@ namespace Bankest.Services.Implementation.Cliente
             }
         }
 
+        public async Task<CuentaBancaria> ObtenerCuentaAsync(Guid cuentaId)
+        {
+            var cuenta = await _storeContext.CuentasBancarias.FindAsync(cuentaId);
 
+            if (cuenta == null)
+            {
+                throw new Exception("Cuenta no encontrada.");
+            }
+
+            // Aplicar intereses si es una cuenta de ahorros
+            _interesService.AplicarIntereses(cuenta);
+
+            // Guardar los cambios en la base de datos
+            await _storeContext.SaveChangesAsync();
+
+            return cuenta;
+        }
 
         public async Task<List<CuentaBancariaDto>> ObtenerCuentasBancariasAsync(string userId)
         {

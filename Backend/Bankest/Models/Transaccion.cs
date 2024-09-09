@@ -13,5 +13,12 @@ namespace Bankest.Models
         public CuentaBancaria CuentaOrigen { get; set; }
         public Guid CuentaDestinoId { get; set; }
         public CuentaBancaria CuentaDestino { get; set; }
+        // Nuevas propiedades
+        public string NombreDestinatario { get; set; }
+        public string? ApellidoPaternoDestinatario { get; set; }
+        public string? ApellidoMaternoDestinatario { get; set; }
+        public string? CorreoDestinatario { get; set; }
+        public string? TelefonoDestinatario { get; set; }
+        public string? Mensaje { get; set; } // Mensaje opcional
     }
 }

@@ -61,12 +61,12 @@ namespace Bankest.Services.Implementation.Transacciones
                 TipoTransaccion = TipoTransaccion.Transferencia,
                 CuentaOrigenId = cuentaOrigen.Id,
                 CuentaDestinoId = cuentaDestino.Id,
-                //NombreDestinatario = transferenciaDto.NombreDestinatario,
-                //ApellidoPaternoDestinatario = transferenciaDto.ApellidoPaternoDestinatario,
-                //ApellidoMaternoDestinatario = transferenciaDto.ApellidoMaternoDestinatario,
-                //CorreoDestinatario = transferenciaDto.CorreoDestinatario,
-                //TelefonoDestinatario = transferenciaDto.TelefonoDestinatario,
-                //Mensaje = transferenciaDto.Mensaje // Mensaje opcional
+                NombreDestinatario = transferenciaDto.NombreDestinatario,
+                ApellidoPaternoDestinatario = transferenciaDto.ApellidoPaternoDestinatario,
+                ApellidoMaternoDestinatario = transferenciaDto.ApellidoMaternoDestinatario,
+                CorreoDestinatario = transferenciaDto.CorreoDestinatario,
+                TelefonoDestinatario = transferenciaDto.TelefonoDestinatario,
+                Mensaje = transferenciaDto.Mensaje // Mensaje opcional
             };
 
             _storeContext.Transacciones.Add(transaccion);
@@ -79,14 +79,27 @@ namespace Bankest.Services.Implementation.Transacciones
 
 
 
-        public async Task<List<Transaccion>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin)
+        public async Task<List<TransaccionDto>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin)
         {
-            return await _storeContext.Transacciones
-                .Where(t => t.CuentaOrigenId == cuentaId || t.CuentaDestinoId == cuentaId)
-                .Where(t => t.Fecha >= fechaInicio && t.Fecha <= fechaFin)
-                .OrderBy(t => t.Fecha)
-                .ToListAsync();
+            var historial = await _storeContext.Transacciones.Where(x => (x.CuentaOrigenId == cuentaId || x.CuentaDestinoId == cuentaId) 
+                                                                    && x.Fecha >= fechaInicio && x.Fecha <= fechaFin).
+                                                                    OrderBy(x => x.Fecha).
+                                                                    ToListAsync();
+
+            // Convertir las transacciones a DTOs
+            var historialDto = historial.Select(t => new TransaccionDto
+            {
+                Id = t.Id,
+                Fecha = t.Fecha,
+                Monto = t.Monto,
+                NumeroCuentaOrigen = t.CuentaOrigen?.NumeroCuenta,  // Comprobar si la cuenta de origen es nula
+                NumeroCuentaDestino = t.CuentaDestino?.NumeroCuenta  // Comprobar si la cuenta de destino es nula
+            }).ToList();
+
+            return historialDto;
         }
+
+        
 
 
         public async Task<DetalleTransaccionDto> ObtenerDetallesTransaccionAsync(Guid transaccionId)

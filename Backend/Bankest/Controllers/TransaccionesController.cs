@@ -1,6 +1,5 @@
 ﻿using Bankest.DTOs.TransaccionesDTO;
 using Bankest.Models;
-using Bankest.Services.Implementation.Transacciones;
 using Bankest.Services.Interfaces.ITransacciones;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -78,15 +77,16 @@ namespace Bankest.Controllers
             }
 
             // Obtener el historial de transacciones en el rango de fechas
-            var historial = await _transaccionService.ObtenerHistorialTransaccionesAsync(filtro.CuentaId, filtro.FechaInicio, filtro.FechaFin);
+            var historialDto = await _transaccionService.ObtenerHistorialTransaccionesAsync(filtro.CuentaId, filtro.FechaInicio, filtro.FechaFin);
 
-            if (historial == null || !historial.Any())
+            if (historialDto == null || !historialDto.Any())
             {
                 return NotFound("No se encontraron transacciones en el rango de fechas especificado.");
             }
 
-            return Ok(historial);
+            return Ok(historialDto);
         }
+
 
 
         [HttpGet("{id}")]

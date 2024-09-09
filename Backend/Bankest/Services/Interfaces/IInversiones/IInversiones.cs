@@ -6,7 +6,7 @@ namespace Bankest.Services.Interfaces.IInversiones
     {
 
         Task<List<Inversion>> ObtenerInversionesPorUsuarioAsync(Guid usuarioId);
-        Task<Inversion> CrearInversionAsync(Inversion nuevaInversion);
+        Task<Inversion> CrearInversionAsync(Inversion nuevaInversion, Guid cuentaId);
         Task<bool> RetirarInversionAsync(Guid inversionId);
         Task<Inversion?> ObtenerInversionPorIdAsync(Guid inversionId);
     }

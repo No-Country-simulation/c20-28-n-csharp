@@ -4,7 +4,7 @@ using Bankest.DTOs;
 using Bankest.DTOs.UserDTO;
 using Bankest.Models;
 using Bankest.Services.Implementation;
-using Bankest.Services.Interfaces;
+using Bankest.Services.Interfaces.IUsuarios;
 using Bankest.Services.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
