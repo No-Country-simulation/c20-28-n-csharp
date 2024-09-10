@@ -1,4 +1,4 @@
-@Bankest_HostAddress = http://localhost:5210
+@Bankest_HostAddress = http://localhost:7073        
 
 GET {{Bankest_HostAddress}}/weatherforecast/
 Accept: application/json
