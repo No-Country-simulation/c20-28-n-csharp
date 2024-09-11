@@ -26,12 +26,15 @@ export function Register() {
     e.preventDefault();
     try {
       // Consumimos la API
-      const res = await fetch("http://localhost:5210", {
+      const res = await fetch("https://bankest.somee.com/api/User/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(text),
+        body: JSON.stringify({
+        
+
+        }),
       });
       
       //notifica si hay un error en el servidor

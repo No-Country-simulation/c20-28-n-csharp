@@ -1,5 +1,5 @@
 import React from 'react';
-import NavMain from '../../Components/Navegacion/NavMain';
+import Navegacion from '../../Components/Navegacion/Navegacion';
 
 //funcion de pageMani
 function PageMani(){
@@ -14,7 +14,7 @@ function PageMani(){
       <>
         <div>
           <h1>Página de Inicio</h1>
-          <NavMain links={links}/>
+          <Navegacion links={links}/>
         </div>
       </>
     );

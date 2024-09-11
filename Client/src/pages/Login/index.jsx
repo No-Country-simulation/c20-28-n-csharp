@@ -22,32 +22,42 @@ function Login() {
     e.preventDefault();
     try {
       //consumimos la API
-      const res = await fetch("http://localhost:5210", {
+      const res = await fetch("https://bankest.somee.com/api/User/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(text),
+        body: JSON.stringify({
+          dni: text.dni,
+          userName: text.usuario, // Mapeamos correctamente "usuario"
+          password: text.clave, // Mapeamos correctamente "clave"
+        }),
       });
-      // Obtener la respuesta en texto
-      const responseText = await res.text();
-      if (!res.ok) {
-        console.error("Error de servidor:", responseText);
-        return;
-      }
 
-      // Verificar si hay respuesta
-      const data = responseText ? JSON.parse(responseText) : {};
-      console.log("login exitoso", data);
-      localStorage.setItem("token", data.token);
+      // Si la respuesta es exitosa
+      if (res.ok) {
+        const data = await res.json();
+        console.log("Login exitoso", data);
+
+        // Guardamos el token si existe
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        } else {
+          console.log("No se recibió token");
+        }
+      } else {
+        console.error("Error al hacer login", res.status);
+      }
     } catch (error) {
-      console.log("error", error);
+      console.log("Error", error);
     }
-  };
+};
   return (
     <div className="row login">
       <section className="d-flex flex-column align-items-center justify-content-center col-md-6">
-        
+
+
+      
         <div className="logo">
           <Logo />
         </div>
