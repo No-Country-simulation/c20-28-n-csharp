@@ -48,7 +48,8 @@ function Login() {
       } else {
         console.error("Error al hacer login", res.status);
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.log("Error", error);
     }
 };
@@ -63,7 +64,11 @@ function Login() {
         </div>
 
         <h2 className="fs-3 text-secondary">Inicio Sesión</h2>
-        <form action="" className="row" onSubmit={handleSubmit}>
+        <form 
+          action="" 
+          className="row" 
+          onSubmit={handleSubmit}
+        >
 
           <InputField
             name="dni"
