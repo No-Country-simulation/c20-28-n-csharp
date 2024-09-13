@@ -1,0 +1,10 @@
+.side-bar{
+    position: fixed;
+    max-width: 30vw;
+    height: 100vh;
+    background-color: #2C3E50;
+}
+.side-bar ul li:hover{
+    text-decoration:underline;
+    text-decoration-color: darkorange;
+}
