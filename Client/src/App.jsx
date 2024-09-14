@@ -3,6 +3,7 @@ import PageMani from "./pages/pageMain"
 import Recuperar from "./pages/Recuperar";
 import Info from "./pages/Informacion/Account";
 import User from "./pages/User";
+import Transferencia from "./pages/Transferencias/Transferencia";
 import Account from "./pages/Informacion/Account";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Register } from "./pages/Registro";
@@ -20,6 +21,7 @@ function App() {
             <Route path="/Recuperar" element={<Recuperar />} />
             <Route path="/Info" element = {<Info />} />
             <Route path="/Cuenta" element ={<Account/>} />
+            <Route path="/Transferencia" element = {<Transferencia />} />
           </Routes>
         </div>
       </Router>
@@ -27,4 +29,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

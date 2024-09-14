@@ -1,16 +1,19 @@
-import InfoAccount from "../../Components/InfoAccount";
-import AccountMoves from "../../Components/AccountMoves";
+import InfoAccount from "../../Components/Targets/InfoAccount";
+import AccountMoves from "../../Components/Targets/AccountMoves";
+import {BtnSearch, CardContactos, Target} from "../../Components/Targets/TargetTransf";
 
 function Account(){
         return(
-        <div className="row">
-           <section className="col-4">
+        <div className="row px-5">
+           <section className="col-4 ps-5 ms-5">
                 <InfoAccount/>
            </section>
-           <section className="col-7">
-                <AccountMoves/>
+           <section className="col-7 pe-5">
+                <AccountMoves/>      
            </section>
-        </div>  
+        </div> 
+     
+     
         );
 }
 export default Account;

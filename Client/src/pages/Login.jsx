@@ -5,6 +5,7 @@ import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate();
     const [text, setText] = React.useState({
         UserName: "",
         Password: ""
@@ -30,6 +31,7 @@ function Login() {
                 // manejar esto (como ni idea xd)
                 console.log("login exitoso", data);
                 console.log(text);
+                navigate("/Cuenta");
             } 
             else {
                 console.log("login fallido", data);
