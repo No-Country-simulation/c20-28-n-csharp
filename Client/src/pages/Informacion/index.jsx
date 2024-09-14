@@ -1,6 +1,7 @@
-function Info(){
+
+function Account(){
         return(
-            <h1>Sobre nosotros</h1>
+        <h1>Hola</h1> 
         );
 }
-export default Info;
+export default Account;

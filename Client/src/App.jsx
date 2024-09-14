@@ -7,6 +7,8 @@ import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Register } from "./pages/Registro";
 import NotFound from "./pages/ErrorPage";
 import Inicio from "./pages/Inicio";
+import Transferencia from "./pages/Transferencias/Transferencia";
+import Account from "./pages/Informacion/Account";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +46,10 @@ const router = createBrowserRouter([
 ])
 function App() {
   return (
+    <>
       <RouterProvider router={router} />
+    </>
   );
 }
 
-export default App
+export default App;

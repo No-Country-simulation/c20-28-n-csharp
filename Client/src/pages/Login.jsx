@@ -2,23 +2,24 @@ import React from "react";
 import Logo from "../Components/Logo/Logo";
 import InputField from "../Components/Inputs/Input-field";
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate();
     const [text, setText] = React.useState({
-        dni: "",
-        usuario: "",
-        clave: ""
+        UserName: "",
+        Password: ""
     });
     const handleChange = (e) => {
         setText({
-            ...text,
-            [e.target.name]: e.target.value
+             ...text,
+            [e.target.name]: e.target.value,
         });
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-             const res = await fetch("api_url/login", {
+             const res = await fetch("https://bankest.somee.com/api/User/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -29,13 +30,17 @@ function Login() {
             if (res.ok) {
                 // manejar esto (como ni idea xd)
                 console.log("login exitoso", data);
+                console.log(text);
+                navigate("/Cuenta");
             } 
             else {
                 console.log("login fallido", data);
+                console.log(text);
             }
         }
         catch (error) {
-            console.log("error", error);
+            console.log("error: ", error);   
+            console.log(text);         
         }
     }
     return (
@@ -46,9 +51,9 @@ function Login() {
                 </div>
                 <h2 className="fs-3 text-secondary">Inicio Sesión</h2>
                 <form action="" className="row" onSubmit={handleSubmit}>
-                <InputField name = "dni" type = "number" value={text.dni} onChange={handleChange}/>
-                <InputField name = "usuario" type = "text" value={text.usuario} onChange={handleChange} />
-                <InputField name = "clave" type = "password" value={text.clave} onChange={handleChange}/>
+                {/* <InputField name = "dni" type = "number" value={text.dni} onChange={handleChange}/> */}
+                <InputField name = "UserName" type = "text" value={text.UserName} placeholder="usuario" onChange={handleChange} />
+                <InputField name = "Password" type = "password" value={text.Password} placeholder="clave" onChange={handleChange}/>
                 <div className="form-check mx-2">
                     <input className="form-check-input bg-secondary-subtle" type="checkbox" value="recordar_usuario" id="recordar_usuario"/>
                     <label className="form-check-label" htmlFor="recordar_usuario">
