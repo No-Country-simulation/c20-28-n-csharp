@@ -29,9 +29,6 @@ export function Register() {
     setErrors({ claveNoCoincide: false, emailInvalido: false }); // Resetear errores al cambiar
   };
 
- 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
