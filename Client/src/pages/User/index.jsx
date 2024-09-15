@@ -2,6 +2,7 @@ import React from "react";
 import Navegacion from "../../Components/Navegacion/Navegacion";
 import InfoAccount from "../../Components/InfoAccount/InfoAccount";
 import AccountMoves from "../../Components/AccountMoves/AccountMoves";
+import "../User/infoAccount.css"
 
 
 function User(){
