@@ -1,4 +1,4 @@
-import InputCheck from "../../Components/Inputs/Input-check"
+import {InputCheck} from "../../Components/Inputs/Inputs"
 import React from "react";
 import { Link } from "react-router-dom";
 

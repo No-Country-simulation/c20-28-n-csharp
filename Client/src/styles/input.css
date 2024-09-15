@@ -1,0 +1,90 @@
+.input-container {
+    position: relative;
+}
+
+input {
+    border: 2px solid #2C3E50;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    height: 80px;
+}
+
+input:focus {
+    border: 2px solid #F39C12;
+}
+
+label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-10%);
+    background: white;
+    padding: 0 4px; 
+    color: #2C3E50;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 30px;
+    color: #2C3E50;
+}
+
+select {
+    border: 2px solid #2C3E50;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    color: #79747E;
+    height: 80px;
+}
+
+select:focus {
+    border: 2px solid #F39C12;
+}
+
+label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-10%);
+    background: white;
+    padding: 0 4px; 
+    color: #2C3E50;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+select:focus + label,
+select:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    color: #2C3E50;
+}
+
+select option{
+    color: #79747E;
+}
+
+#inputNumber{
+    height: 160px;
+    font-size: 60px;
+    color: var(--Azul-oscuro, #2C3E50);
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 600;
+    padding: 0px 50px ;
+}

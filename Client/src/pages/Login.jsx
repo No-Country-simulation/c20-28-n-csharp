@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../Components/Logo/Logo";
-import InputField from "../Components/Inputs/Input-field";
+import {InputField} from "../Components/Inputs/Inputs";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 

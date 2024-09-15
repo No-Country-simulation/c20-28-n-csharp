@@ -48,3 +48,16 @@ export function CardContactos(props) {
     }
 
 }
+
+export function CardTransfer(props){
+    return(
+        <div className="Data-transfer">
+            <h3 className="titulo">Cuenta a transferir</h3>
+            <span>Cuenta Galicia</span>
+            <span>CBU: {props.CBU}</span>
+            <span>Alias: {props.alias}</span>
+            <span>Titular de cuenta: {props.nombre} {props.apellido}</span>
+        </div>
+    )
+}
+

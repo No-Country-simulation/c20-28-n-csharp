@@ -1,4 +1,4 @@
-import InputField from "../../Components/Inputs/Input-field";
+import {InputField} from "../../Components/Inputs/Inputs";
 import React from "react";
 import { Link } from "react-router-dom";
 

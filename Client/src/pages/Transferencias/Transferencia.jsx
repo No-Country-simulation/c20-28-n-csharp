@@ -1,5 +1,6 @@
 import Table from "../../Components/Table/Table";
 import { BtnSearch, CardContactos, Target } from "../../Components/Targets/TargetTransf";
+import SideBar from "../../Components/Side-bar/SideBar";
 
 function Transferencia() {
 
@@ -10,7 +11,11 @@ function Transferencia() {
     ];
 
     return (
-        <div className="container">
+        <div className="row">
+            <aside className="col-2">
+                    <SideBar />
+            </aside>
+            <section className="col-9 mx-auto">
             <div className="row ">
                 <div className="col-5">
                     <Target texto="Transferir a un Alias, CBU o CVU" />
@@ -64,8 +69,9 @@ function Transferencia() {
                             columnas={columnas}
                             datos={datos}
                         />
-                    </div>
+                    </div>               
             </div>
+            </section>
         </div>
     );
 }
