@@ -4,19 +4,7 @@ import "../../pages/User/infoAccount.css";
 function InfoAccount() {
     return (
         <div className="container m-5">
-            <div className="account-balance">
-                <h3 className="title">Cuenta Ahorro en pesos</h3>
-                <div className="balance">
-                    <div className="icono"><i class="fa-solid fa-eye-slash"></i>
-                                           <i class="fa-solid fa-eye"></i>
-                    </div>
-                    <div className="value-b">
-                        $&nbsp;1.000<sup>
-                            60
-                        </sup>
-                    </div>
-                </div>
-            </div>
+            <Saldo/>
             <div className="Account-data">
                 <h3 className="title">
                     Datos de la cuenta&nbsp;&nbsp;

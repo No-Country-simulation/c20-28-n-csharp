@@ -59,10 +59,7 @@ function Login() {
 };
   return (
     <div className="row login">
-      <section className="d-flex flex-column align-items-center justify-content-center col-md-6">
-
-
-      
+      <section className="d-flex flex-column align-items-center justify-content-center col-md-8">
         <div className="logo">
           <Logo />
         </div>
@@ -125,8 +122,8 @@ function Login() {
 
       </section>
 
-      <section className="col-md-6 bg-body-secondary d-none d-md-block">
-        imagenes
+      <section className="col-md-4 bg-body-secondary d-none d-md-block h-100 p-0">
+        <img className="img-fluid w-100 object-fit-cover h-100" src="/src/assets/Login.png" alt="Login banner" />
       </section>
     </div>
   );
