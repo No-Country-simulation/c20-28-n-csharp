@@ -3,7 +3,8 @@ import React from "react";
 function Input({ name, value, type, onChange, ...props }) {
   return (
     <div className="mb-3 input-field">
-      <label className="text-capitalize" htmlFor={name}>
+      <label className="text-capitalize" 
+              htmlFor={name}>
         {name}
       </label>
       <input

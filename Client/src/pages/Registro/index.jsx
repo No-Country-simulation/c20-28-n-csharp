@@ -1,6 +1,8 @@
 import InputCheck from "../../Components/Inputs/Input-check"
 import React from "react";
 import { Link } from "react-router-dom";
+import "../Registro/registro.css"
+
 
 export function Register() {
   //se encarga de los estados de Registro
@@ -19,6 +21,14 @@ export function Register() {
     claveNoCoincide: false,
     emailInvalido: false,
   });
+  //Estado para los mensajes de registro
+  const [mensaje, setMensaje] = React.useState('');
+
+  // Expresión regular para validar el formato de correo
+  const esEmailValido = (correo) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(correo);
+  };
 
   // Función para manejar los cambios en los campos
   const handleChange = (e) => {
@@ -29,8 +39,28 @@ export function Register() {
     setErrors({ claveNoCoincide: false, emailInvalido: false }); // Resetear errores al cambiar
   };
 
+  // Manejar envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let emailInvalido = false;
+    let claveNoCoincide = false;
+
+    // Validar el formato del correo
+    if (!esEmailValido(text.correo)) {
+      emailInvalido = true;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (text.clave !== text.validarClave) {
+      claveNoCoincide = true;
+    }
+
+    // Si hay errores, actualizamos el estado de errores y no procedemos
+    if (emailInvalido || claveNoCoincide) {
+      setErrors({ claveNoCoincide, emailInvalido });
+      return;
+    }
 
     try {
       console.log("Iniciando solicitud de registro...");
@@ -60,7 +90,7 @@ export function Register() {
       if (res.ok) {
         if (contentType && contentType.includes("application/json")) {
           const data = await res.json();
-          console.log("Registro exitoso", data);
+          setMensaje("Registro exitoso", data);
 
           if (data.token) {
             localStorage.setItem("token", data.token);
@@ -69,17 +99,17 @@ export function Register() {
           }
         } else {
           const textResponse = await res.text();
-          console.log("Respuesta no JSON recibida:", textResponse);
+          setMensaje("Exito en registro", textResponse);
         }
       } else {
         const errorText = await res.text();
         console.error("Error en el registro:", res.status, errorText);
+
       }
     } catch (error) {
       console.error("Error en la solicitud de registro:", error);
     }
   };
-
 
   return (
     <>
@@ -148,6 +178,9 @@ export function Register() {
                 type="text"
                 onChange={handleChange}
               />
+              {errors.emailInvalido && (
+                <p className="text-danger">El correo no es válido.</p>
+              )}
             </div>
 
             <div className="col-6">
@@ -157,6 +190,10 @@ export function Register() {
                 type="password"
                 onChange={handleChange}
               />
+              <p className="text-secondary">
+                La contraseña debe tener al menos 8 caracteres, una mayúscula,
+                un número y un carácter especial.
+              </p>
             </div>
 
             <div className="col-6">
@@ -166,6 +203,9 @@ export function Register() {
                 type="password"
                 onChange={handleChange}
               />
+              {errors.claveNoCoincide && (
+                <p className="text-danger">La contraseña no coincide.</p>
+              )}
             </div>
           </section>
           <section className="d-flex flex-column align-items-center justify-content-center">
@@ -183,11 +223,14 @@ export function Register() {
                 Aceptar <b>Términos y condiciones</b>
               </label>
             </div>
-            <input
-              type="submit"
-              className="btn btn-secondary mt-4"
-              value="Registrarse"
-            />
+            <div>
+              <input
+                type="submit"
+                className="btn btn-secondary mt-4"
+                value="Registrarse"
+              />
+              {mensaje && <p className="message">{mensaje}</p>}
+            </div>
           </section>
         </form>
       </main>

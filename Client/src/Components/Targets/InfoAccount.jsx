@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/infoAccount.css";
+import "../../pages/User/infoAccount.css";
 
 function InfoAccount() {
     return (

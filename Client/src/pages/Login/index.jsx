@@ -2,12 +2,14 @@ import React from "react";
 import Logo from "../../Components/Logo";
 import InputField from "../../Components/Inputs/Input-field";
 import "../Login/Login.css";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  //hook para  manejar la redireccion de User
+  const navigate = useNavigate();
   //se encarga de los estados de login
   const [text, setText] = React.useState({
-    dni: "",
     usuario: "",
     clave: "",
   });
@@ -28,7 +30,6 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          dni: text.dni,
           userName: text.usuario, // Mapeamos correctamente "usuario"
           password: text.clave, // Mapeamos correctamente "clave"
         }),
@@ -42,6 +43,9 @@ function Login() {
         // Guardamos el token si existe
         if (data.token) {
           localStorage.setItem("token", data.token);
+
+          navigate('/User')
+
         } else {
           console.log("No se recibió token");
         }
@@ -69,13 +73,6 @@ function Login() {
           className="row" 
           onSubmit={handleSubmit}
         >
-
-          <InputField
-            name="dni"
-            type="number"
-            value={text.dni}
-            onChange={handleChange}
-          />
 
           <InputField
             name="usuario"
@@ -119,11 +116,11 @@ function Login() {
         <Link to="/Register" 
         className="text-secondary mt-2">
           No estas registrado?{" "}
-          <a
+          <span
             className="link-underline link-underline-opacity-0 link-dark"
           >
             Registrate
-          </a>{" "}
+          </span>{" "}
         </Link>
 
       </section>

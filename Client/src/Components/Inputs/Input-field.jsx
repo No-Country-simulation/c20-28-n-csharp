@@ -4,7 +4,7 @@ function Input({name, value, type, placeholder, onChange}) {
     return (
         <div className="mb-3 input-field">
             <label className="text-capitalize" 
-                    htmlFor={name}>{placeholder}
+                    htmlFor={name}>{name}
             </label>
             <input type={type} 
                     className="form-control text-capitalize" 
