@@ -1,6 +1,7 @@
 import React from "react";
+import './inputs.css'
 
-function Input({name, value, type, placeholder, onChange}) {
+function Input({name, value, type, onChange}) {
     return (
         <div className="mb-3 input-field">
             <label className="text-capitalize" 
@@ -9,7 +10,6 @@ function Input({name, value, type, placeholder, onChange}) {
             <input type={type} 
                     className="form-control text-capitalize" 
                     name={name} 
-                    placeholder={placeholder} 
                     value={value} 
                     onChange={onChange}
             />

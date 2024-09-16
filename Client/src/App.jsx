@@ -1,4 +1,4 @@
-import Login from "./pages/Login"
+import Login from "./pages/Login/index";
 import PageMain from "./pages/pageMain"
 import Recuperar from "./pages/Recuperar";
 import Info from "./pages/Informacion";

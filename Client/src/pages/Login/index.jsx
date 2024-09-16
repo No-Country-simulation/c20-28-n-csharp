@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../Components/Logo";
 import InputField from "../../Components/Inputs/Input-field";
-import "../Login/Login.css";
+import "./Login.css";
 import { Link, } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -64,57 +64,40 @@ function Login() {
           <Logo />
         </div>
 
-        <h2 className="fs-3 text-secondary">Inicio Sesión</h2>
+        <h2 className="fs-1 pb-5">Inicio Sesión</h2>
         <form 
           action="" 
           className="row" 
           onSubmit={handleSubmit}
         >
+        <InputField name = "usuario" type = "text" value={text.usuario} placeholder="usuario" onChange={handleChange} />
+        <InputField name = "clave" type = "password" value={text.clave} placeholder="clave" onChange={handleChange}/>
 
-          <InputField
-            name="usuario"
-            type="text"
-            value={text.usuario}
-            onChange={handleChange}
-          />
-
-          <InputField
-            name="clave"
-            type="password"
-            value={text.clave}
-            onChange={handleChange}
-          />
-
+          
           <div className="form-check mx-2">
-            <input
-              className="form-check-input bg-secondary-subtle"
-              type="checkbox"
-              value="recordar_usuario"
-              id="recordar_usuario"
-            />
-            <label className="form-check-label" htmlFor="recordar_usuario">
+            <input className="form-check-input" type="checkbox" value="recordar_usuario" id="recordar_usuario"/>
+            <label className="form-check-label fw-light" htmlFor="recordar_usuario">
               Recordar usuario
             </label>
           </div>
-
           <input
             type="submit"
-            className="btn btn-secondary mt-4"
-            value="INICIAR SESIÓN"
+            className="btn btn-naranja fw-bold mt-4"
+            value="iniciar sesión"
           />
         </form>
 
         <Link to="/Recuperar"
-          className="link-underline link-underline-opacity-0 link-secondary mt-2"
+          className="link-underline link-underline-opacity-0 mt-2 link-recuperar fw-bold"
         >
-          Olvidaste o bloqueaste tu clave o usuario?
+          ¿Olvidaste o bloqueaste tu clave o usuario?
         </Link>
 
         <Link to="/Register" 
-        className="text-secondary mt-2">
+        className="text-secondary mt-2 link-underline link-underline-opacity-0">
           No estas registrado?{" "}
           <span
-            className="link-underline link-underline-opacity-0 link-dark"
+            className="fw-bold text-warning"
           >
             Registrate
           </span>{" "}
