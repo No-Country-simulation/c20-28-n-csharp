@@ -14,9 +14,6 @@
   top: 1rem;
   left: 1rem;
 }
-.login .login form, .register .login form {
-  max-width: 20rem;
-}
 .login form, .register form {
   position: relative;
 }

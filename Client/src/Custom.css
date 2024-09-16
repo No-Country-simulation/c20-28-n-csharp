@@ -13,7 +13,6 @@ p,h1, h2, h3, h4, h5, h6 {
   color: var(--bs-secondary);
 }
 
-
 .btn-naranja{
   background-color: var(--blanco);
   color: var(--bs-secondary-subtle);

@@ -6,6 +6,7 @@ import { Link, } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [error, setError] = React.useState(false);
   //hook para  manejar la redireccion de User
   const navigate = useNavigate();
   //se encarga de los estados de login
@@ -51,6 +52,7 @@ function Login() {
         }
       } else {
         console.error("Error al hacer login", res.status);
+        setError(true);
       }
     } 
     catch (error) {
@@ -59,7 +61,7 @@ function Login() {
 };
   return (
     <div className="row login">
-      <section className="d-flex flex-column align-items-center justify-content-center col-md-8">
+      <section className="d-flex flex-column align-items-center justify-content-center col-md-8 position-relative">
         <div className="logo">
           <Logo />
         </div>
@@ -108,6 +110,15 @@ function Login() {
       <section className="col-md-4 bg-body-secondary d-none d-md-block h-100 p-0">
         <img className="img-fluid w-100 object-fit-cover h-100" src="/src/assets/Login.png" alt="Login banner" />
       </section>
+
+      {error && 
+        <div class="alert alert-secondary" role="alert">
+          <p>Los datos que ingresaste tienen algún error.</p> 
+          <p class="mb-0">Por favor revísalos antes de volver a intentarlo, ya que tu usuario y clave pueden bloquearse.</p>
+          <p>12365487987456</p>
+          <button className="btn btn-warning position-absolute" onClick={()=> setError(false)}>Aceptar</button>
+        </div>
+      }
     </div>
   );
 }

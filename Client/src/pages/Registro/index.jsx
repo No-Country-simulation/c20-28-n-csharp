@@ -2,6 +2,7 @@ import {InputCheck} from "../../Components/Inputs/Inputs"
 import React from "react";
 import { Link } from "react-router-dom";
 import "../Registro/registro.css"
+import Logo from "../../Components/Logo";
 
 
 export function Register() {
@@ -20,6 +21,7 @@ export function Register() {
   const [errors, setErrors] = React.useState({
     claveNoCoincide: false,
     emailInvalido: false,
+    claveInvalida: false,
   });
   //Estado para los mensajes de registro
   const [mensaje, setMensaje] = React.useState('');
@@ -114,28 +116,24 @@ export function Register() {
   return (
     <>
       <header>
-        <nav className="navbar navbar-light bg-secondary-subtle">
+        <nav className="navbar navbar-light">
           <div className="container-fluid">
-            <Link to="/" className="navbar-brand">
-              <div className="circle mx-2 bg-light text-body-tertiary"></div>
-            </Link>
-            <h1>Registro</h1>
-            <Link to="/login" className="nav-link ms-auto ">
-              &lt; Login
+            <Logo/>
+            <Link to="/" className="nav-link ms-auto txt-lima fw-bold fs-4 text-uppercase">
+              &lt; Volver
             </Link>
           </div>
         </nav>
       </header>
 
-      <main className="container mt-5 register">
+      <main className="container-md mt-5 register">
         <form
           action=""
-          className="bg-secondary-subtle"
+          className="p-2 p-md-4 p-lg-5"
           onSubmit={handleSubmit}
-          style={{ padding: "50px", boxSizing: "border-box" }}
         >
           <section className="row">
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="nombre"
                 value={text.nombre}
@@ -144,7 +142,7 @@ export function Register() {
               />
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="apellidoPaterno"
                 value={text.apellidoPaterno}
@@ -153,7 +151,7 @@ export function Register() {
               />
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="apellidoMaterno"
                 value={text.apellidoMaterno}
@@ -162,7 +160,7 @@ export function Register() {
               />
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="telefono"
                 value={text.telefono}
@@ -171,7 +169,7 @@ export function Register() {
               />
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="correo"
                 value={text.correo}
@@ -179,24 +177,27 @@ export function Register() {
                 onChange={handleChange}
               />
               {errors.emailInvalido && (
-                <p className="text-danger">El correo no es válido.</p>
+                <p className="text-danger">* El correo no es válido.</p>
               )}
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="clave"
                 value={text.clave}
                 type="password"
                 onChange={handleChange}
               />
-              <p className="text-secondary">
-                La contraseña debe tener al menos 8 caracteres, una mayúscula,
-                un número y un carácter especial.
-              </p>
+
+              {errors.claveInvalida && (
+                <p className="text-danger">
+                  * La contraseña debe tener al menos 8 caracteres, una mayúscula,
+                  un número y un carácter especial.
+                </p>
+              )}
             </div>
 
-            <div className="col-6">
+            <div className="col-lg-6">
               <InputCheck
                 name="validarClave"
                 value={text.validarClave}
@@ -204,7 +205,7 @@ export function Register() {
                 onChange={handleChange}
               />
               {errors.claveNoCoincide && (
-                <p className="text-danger">La contraseña no coincide.</p>
+                <p className="text-danger">* La contraseña no coincide.</p>
               )}
             </div>
           </section>
@@ -220,13 +221,13 @@ export function Register() {
                 className="form-check-label text-secondary"
                 htmlFor="terminos_condiciones"
               >
-                Aceptar <b>Términos y condiciones</b>
+                Aceptar <b className="txt-lima">Términos y condiciones</b>
               </label>
             </div>
             <div>
               <input
                 type="submit"
-                className="btn btn-secondary mt-4"
+                className="btn btn-naranja mt-4"
                 value="Registrarse"
               />
               {mensaje && <p className="message">{mensaje}</p>}
