@@ -6,8 +6,9 @@ function PageMani(){
   //links de navegacion
     const links = [
       { to: "/login", text: "Iniciar sesión" },
-      { to: "/register", text: "Quiero una cuenta" },
-      { to: "/info", text: "Quiero más información" },
+      { to: "/register", text: "Registro" },
+      { to: "/transferencia", text: "transferencia" },
+      { to: "/cuenta", text: "cuenta" },
     ];
 
     return (

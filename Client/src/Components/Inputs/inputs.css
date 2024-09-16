@@ -1,0 +1,16 @@
+@import url('../../Custom.css');
+.input-field{
+    position: relative;
+}
+.input-field label{
+    position: absolute;
+    transform: translateX(.5em) translateY(-.7em);
+    padding: 0 0.5em;
+}
+.input-field input{
+    border: 2px solid var(--bs-secondary);
+}
+.input-field input:focus{
+    border: 2px solid var(--naranja);
+    box-shadow:0 0 5px 1.25px var(--naranja);
+}

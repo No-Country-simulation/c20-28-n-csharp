@@ -1,3 +1,4 @@
+@import url('../../Custom.css');
 *,
 *::before,
 *::after {
@@ -11,4 +12,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}/*# sourceMappingURL=Login.css.map */
+}
+.link-recuperar{
+  color: var(--lima);
+}
+.login .col-md-8 form{
+  width: 60vmin;
+}
+@media screen and (max-width: 480px){
+  .login .col-md-8 form{
+    width: 100%;
+  }
+  
+}
+.alert{
+  position: fixed;
+  top: -50%;
+  left: 40%;
+  font-size: 1.4rem;
+  transform: translate(-50%, -50%);
+  width: 30% !important; 
+}
+.alert button{
+  bottom: 10px;
+  right: 10px;
+}
