@@ -6,7 +6,7 @@ function InfoAccount() {
     const [show, setShow] = useState(true);
     const [showDataTarget, setShowDataTarget] = useState(true);
     return (
-        <div className="container my-5 ms-2">
+        <div className="container mt-1 ms-2">
             <div className="account-balance">
                 <h3 className="title">Cuenta Ahorro en pesos</h3>
                 <div className="balance">

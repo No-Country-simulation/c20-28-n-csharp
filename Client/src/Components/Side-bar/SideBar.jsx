@@ -14,7 +14,7 @@ export default function SideBar() {
         { to: '/cerrar_sesion', text: 'Cerrar Sesión' },
         ];
     return (
-        <div className="d-flex flex-column flex-shrink-0 p-3 bg-light side-bar">
+        <div className="d-flex flex-column flex-shrink-0 p-5 side-bar">
             <FotoPerfil src="https://avatars.githubusercontent.com/u/98681?v=4" alt="perfil"/>
             <ul className="nav nav-pills flex-column mb-auto">
                 {links.map((link, index) => ( 

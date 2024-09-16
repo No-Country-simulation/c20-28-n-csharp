@@ -7,11 +7,11 @@ function Table({ titulo, columnas, datos }) {
     return (
         <div className="container mt-5">
             <h3 className="title d-flex align-items-center justify-content-between" style={{fontFamily: "Roboto ,sans-serif",fontStyle: "normal",fontWeight : "500"}}>{titulo}{showTable ? <p style={{
-                color: " #F39C12", fontSize: "18px", fontWeight: 700, fontFamily: "Roboto, sans-serif",
+                color: " #F39C12", fontSize: "18px", fontWeight: 700, fontFamily: "Inter",
                 fontStyle: "normal"
             }}>OCULTAR HISTORIAL <i style={{ color: "gray", fontSize: "25px", }} className="fa-solid fa-eye-slash" onClick={() => setShowTable(!showTable)}></i></p>
                 : <p style={{
-                    color: " #F39C12", fontSize: "18px", fontWeight: 700, fontFamily: "Roboto, sans-serif", fontStyle: "normal"
+                    color: " #F39C12", fontSize: "18px", fontWeight: 700, fontFamily: "Inter", fontStyle: "normal"
                 }}>MOSTRAR HISTORIAL <i style={{ color: "gray", fontSize: "25px", }} className="fa-solid fa-eye" onClick={() => setShowTable(true)}></i></p>
             }</h3>
             {showTable ? 
