@@ -12,6 +12,10 @@ function Navegacion(){
             Quiero una cuenta
           </Link>
 
+          <Link to="/Transferencia" className="btn btn-link btn-info">
+            Hacer una transferencia
+          </Link>
+
           <Link to="/Info" className="btn btn-link btn-info">
             Quiero mas informacion
           </Link>
