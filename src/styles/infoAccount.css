@@ -1,0 +1,103 @@
+.container{
+    display: flex;
+    flex-direction: column; 
+    /* padding: 80px; */
+    max-width: min-content;
+}
+
+.Account-balance{
+    max-width: min-content;
+}
+
+.balance{
+    padding: 10px;
+    border: 2px solid #F7DC6F;
+    border-radius: 20px;
+    color: #2C3E50;
+    max-width: min-content;
+}
+
+.icono{
+    display: flex;
+    justify-content: end;
+    margin-right: 2%;
+    color: gray !important;
+}
+
+.icon{
+   color: gray; 
+}
+
+.value-b{
+    font-size: 60px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 40px;
+    font-family: "Inter";
+    font-style: normal;
+}
+
+.title{
+    color: #2C3E50;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 60px;
+    font-family: "Inter";
+    font-style: normal;
+}
+
+.Account-data{
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+}
+
+.Account-data span{
+    font-size: 20px;
+    margin-bottom: 4px;
+    color: #2C3E50;
+    font-weight: 400;
+    font-family: "Inter";
+    font-style: normal;
+}
+
+.Target-data{
+    max-width: fit-content;
+}
+
+.square-target{
+    padding: 10px;
+    background-color: #F3F3F3;
+    border-radius: 20px;
+    color: #2C3E50;
+    width: fit-content;
+}
+
+.square-target span{
+    margin-bottom: 4px;
+    color: #2C3E50;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    font-family: "Inter";
+    font-style: normal;
+}
+
+.target-v{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 80px 10px 40px;
+    text-align: left;
+}
+
+.foot-text{
+    margin-top: 5px;
+    width: 90%;
+    font-weight: 600;
+    color: #F39C12;
+    font-size: 18px;
+    text-align: center;
+    font-family: "Inter";
+    font-style: normal;
+}
+

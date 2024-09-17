@@ -1,0 +1,25 @@
+@import url('../Custom.css');
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.login, .register {
+  height: 100vh;
+  position: relative;
+}
+.login .logo, .register .logo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.login form, .register form {
+  position: relative;
+}
+.side-bar {
+  position: fixed;
+  max-width: 30vw;
+  height: 100vh;
+}/*# sourceMappingURL=Login.css.map */
+

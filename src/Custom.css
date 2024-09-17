@@ -1,0 +1,25 @@
+
+:root {
+  --bs-secondary: #2C3E50;
+  --bs-secondary-subtle: #79747E;
+  --lima: #A3CB38;
+  --bs-warning: #F39C12;
+  --bs-success: #2ECC71;
+  --naranja: #F39C12;
+  --blanco:#F3F3F3;
+}
+
+p,h1, h2, h3, h4, h5, h6 {
+  color: var(--bs-secondary);
+}
+
+.btn-naranja{
+  background-color: var(--blanco);
+  color: var(--bs-secondary-subtle);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+}
+.btn-naranja:hover{
+  background-color: var(--naranja );
+  color: var(--blanco);
+}

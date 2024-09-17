@@ -1,0 +1,22 @@
+@import url('../../Custom.css');
+/*menseje de registro*/
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+.txt-lima{
+  color: var(--lima) !important;
+}
+.register form{
+  box-shadow: 0 0 10px 1px var(--naranja);
+}
+@media screen and (max-width: 768px) {
+  form{
+    padding: 10px;
+  }
+}
