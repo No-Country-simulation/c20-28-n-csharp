@@ -18,5 +18,7 @@ namespace Bankest.Models
         public ICollection<CalendarioPago> CalendariosPago { get; set; }
         // Nueva propiedad para rastrear cuándo se aplicaron los intereses por última vez
         public DateTime UltimaFechaCalculoInteres { get; set; }
+        // Alias para identificar fácilmente la cuenta
+        public string? Alias { get; set; }
     }
 }

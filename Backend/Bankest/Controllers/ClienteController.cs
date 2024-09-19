@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Bankest.DTOs.Cliente;
 using Bankest.Models;
+using Bankest.Services.Implementation.Cliente;
 using Bankest.Services.Interfaces.ICliente;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,13 +28,17 @@ namespace Bankest.Controllers
         }
 
 
-        [HttpGet("{idUsuario:guid}", Name = "GetCliente")]
-        public async Task<ActionResult<UsuarioDto>> GetDatosUsuarioAsync(Guid idUsuario)
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> GetCliente(Guid clientId)
         {
-            var usuario = _cliente.ObtenerdatosClienteAsync(idUsuario);
-            return Ok(usuario);
-
+            var cliente = await _cliente.ObtenerdatosClienteAsync(clientId);
+            if (cliente == null)
+            {
+                return NotFound(new { Message = "Cliente no encontrado." });
+            }
+            return Ok(cliente);
         }
+
 
         [HttpGet("GetCuentas")]
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -119,6 +124,12 @@ namespace Bankest.Controllers
             }
 
             return Ok(mensaje);
+        }
+
+        [HttpGet("hola")]
+        public async Task <IActionResult> hola()
+        {
+            return Ok("Hola mundo");
         }
     }
 }

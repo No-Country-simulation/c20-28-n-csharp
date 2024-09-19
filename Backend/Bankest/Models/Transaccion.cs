@@ -20,5 +20,7 @@ namespace Bankest.Models
         public string? CorreoDestinatario { get; set; }
         public string? TelefonoDestinatario { get; set; }
         public string? Mensaje { get; set; } // Mensaje opcional
+                                           
+        public string? AliasDestino { get; set; }  // Nuevo campo para guardar el alias de la cuenta destino
     }
 }

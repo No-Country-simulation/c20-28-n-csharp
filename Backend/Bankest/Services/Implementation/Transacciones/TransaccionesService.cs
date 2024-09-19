@@ -13,6 +13,70 @@ namespace Bankest.Services.Implementation.Transacciones
         {
             _storeContext = storeContext;
         }
+        //public async Task<bool> RealizarTransferenciaAsync(TransferenciaDto transferenciaDto, Guid usuarioId)
+        //{
+        //    // Buscar la cuenta de origen del usuario autenticado
+        //    var cuentaOrigen = await _storeContext.CuentasBancarias
+        //        .FirstOrDefaultAsync(c => c.Id == transferenciaDto.CuentaOrigenId && c.UsuarioId == usuarioId);
+
+        //    if (cuentaOrigen == null)
+        //    {
+        //        throw new InvalidOperationException("La cuenta de origen no existe o no pertenece al usuario.");
+        //    }
+
+        //    // Buscar la cuenta de destino por el número de cuenta
+        //    var cuentaDestino = await _storeContext.CuentasBancarias
+        //        .FirstOrDefaultAsync(c => c.NumeroCuenta == transferenciaDto.NumeroCuentaDestino);
+
+        //    if (cuentaDestino == null)
+        //    {
+        //        throw new InvalidOperationException("La cuenta de destino no existe.");
+        //    }
+
+        //    //// Validar el nombre y apellidos del destinatario (si están presentes)
+        //    //if (!string.IsNullOrEmpty(transferenciaDto.NombreDestinatario) &&
+        //    //    (cuentaDestino.Usuario.Nombre != transferenciaDto.NombreDestinatario ||
+        //    //     cuentaDestino.Usuario.ApellidoPaterno != transferenciaDto.ApellidoPaternoDestinatario ||
+        //    //     cuentaDestino.Usuario.ApellidoMaterno != transferenciaDto.ApellidoMaternoDestinatario))
+        //    //{
+        //    //    throw new InvalidOperationException("El nombre o apellidos del destinatario no coinciden con los datos de la cuenta.");
+        //    //}
+
+        //    // Validar saldo suficiente en la cuenta de origen
+        //    if (cuentaOrigen.Saldo < transferenciaDto.Monto)
+        //    {
+        //        throw new InvalidOperationException("Saldo insuficiente en la cuenta de origen.");
+        //    }
+
+        //    // Realizar la transferencia
+        //    cuentaOrigen.Saldo -= transferenciaDto.Monto;
+        //    cuentaDestino.Saldo += transferenciaDto.Monto;
+
+        //    // Registrar la transacción con el mensaje opcional
+        //    var transaccion = new Transaccion
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Fecha = DateTime.UtcNow,
+        //        Monto = transferenciaDto.Monto,
+        //        TipoTransaccion = TipoTransaccion.Transferencia,
+        //        CuentaOrigenId = cuentaOrigen.Id,
+        //        CuentaDestinoId = cuentaDestino.Id,
+        //        NombreDestinatario = transferenciaDto.NombreDestinatario,
+        //        ApellidoPaternoDestinatario = transferenciaDto.ApellidoPaternoDestinatario,
+        //        ApellidoMaternoDestinatario = transferenciaDto.ApellidoMaternoDestinatario,
+        //        CorreoDestinatario = transferenciaDto.CorreoDestinatario,
+        //        TelefonoDestinatario = transferenciaDto.TelefonoDestinatario,
+        //        Mensaje = transferenciaDto.Mensaje // Mensaje opcional
+        //    };
+
+        //    _storeContext.Transacciones.Add(transaccion);
+
+        //    // Guardar cambios en la base de datos
+        //    await _storeContext.SaveChangesAsync();
+
+        //    return true;
+        //}
+
         public async Task<bool> RealizarTransferenciaAsync(TransferenciaDto transferenciaDto, Guid usuarioId)
         {
             // Buscar la cuenta de origen del usuario autenticado
@@ -24,23 +88,27 @@ namespace Bankest.Services.Implementation.Transacciones
                 throw new InvalidOperationException("La cuenta de origen no existe o no pertenece al usuario.");
             }
 
-            // Buscar la cuenta de destino por el número de cuenta
-            var cuentaDestino = await _storeContext.CuentasBancarias
-                .FirstOrDefaultAsync(c => c.NumeroCuenta == transferenciaDto.NumeroCuentaDestino);
+            // Buscar la cuenta de destino, primero por Alias si está presente
+            CuentaBancaria cuentaDestino = null;
 
+            if (!string.IsNullOrEmpty(transferenciaDto.AliasDestino))
+            {
+                // Buscar la cuenta de destino utilizando el alias
+                cuentaDestino = await _storeContext.CuentasBancarias
+                    .FirstOrDefaultAsync(c => c.Alias == transferenciaDto.AliasDestino);
+            }
+            else
+            {
+                // Si no hay alias, buscar por número de cuenta
+                cuentaDestino = await _storeContext.CuentasBancarias
+                    .FirstOrDefaultAsync(c => c.NumeroCuenta == transferenciaDto.NumeroCuentaDestino);
+            }
+
+            // Verificar si se encontró la cuenta de destino
             if (cuentaDestino == null)
             {
                 throw new InvalidOperationException("La cuenta de destino no existe.");
             }
-
-            //// Validar el nombre y apellidos del destinatario (si están presentes)
-            //if (!string.IsNullOrEmpty(transferenciaDto.NombreDestinatario) &&
-            //    (cuentaDestino.Usuario.Nombre != transferenciaDto.NombreDestinatario ||
-            //     cuentaDestino.Usuario.ApellidoPaterno != transferenciaDto.ApellidoPaternoDestinatario ||
-            //     cuentaDestino.Usuario.ApellidoMaterno != transferenciaDto.ApellidoMaternoDestinatario))
-            //{
-            //    throw new InvalidOperationException("El nombre o apellidos del destinatario no coinciden con los datos de la cuenta.");
-            //}
 
             // Validar saldo suficiente en la cuenta de origen
             if (cuentaOrigen.Saldo < transferenciaDto.Monto)
@@ -52,7 +120,7 @@ namespace Bankest.Services.Implementation.Transacciones
             cuentaOrigen.Saldo -= transferenciaDto.Monto;
             cuentaDestino.Saldo += transferenciaDto.Monto;
 
-            // Registrar la transacción con el mensaje opcional
+            // Registrar la transacción con los datos del destinatario
             var transaccion = new Transaccion
             {
                 Id = Guid.NewGuid(),
@@ -61,6 +129,7 @@ namespace Bankest.Services.Implementation.Transacciones
                 TipoTransaccion = TipoTransaccion.Transferencia,
                 CuentaOrigenId = cuentaOrigen.Id,
                 CuentaDestinoId = cuentaDestino.Id,
+                AliasDestino = transferenciaDto.AliasDestino, // Guardar el alias si se usó
                 NombreDestinatario = transferenciaDto.NombreDestinatario,
                 ApellidoPaternoDestinatario = transferenciaDto.ApellidoPaternoDestinatario,
                 ApellidoMaternoDestinatario = transferenciaDto.ApellidoMaternoDestinatario,
@@ -69,14 +138,14 @@ namespace Bankest.Services.Implementation.Transacciones
                 Mensaje = transferenciaDto.Mensaje // Mensaje opcional
             };
 
+            // Guardar la transacción en la base de datos
             _storeContext.Transacciones.Add(transaccion);
 
-            // Guardar cambios en la base de datos
+            // Guardar los cambios en la base de datos
             await _storeContext.SaveChangesAsync();
 
             return true;
         }
-
 
 
         public async Task<List<TransaccionDto>> ObtenerHistorialTransaccionesAsync(Guid cuentaId, DateTime fechaInicio, DateTime fechaFin)
