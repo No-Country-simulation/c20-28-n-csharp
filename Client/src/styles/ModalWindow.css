@@ -1,0 +1,72 @@
+.overlay{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-modal{
+    border-radius: 18px;
+    background: #FFF;
+    box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.14);
+    width: 50%;
+    position: relative;
+    min-height: 100px;
+    padding: 30px;
+}
+
+.close{
+    color: #2C3E50;
+    font-size: 40px;
+}
+
+.encabezado-modal{
+    display: flex;
+    justify-content: end;
+}
+
+.icono-principal{
+    margin: auto;
+    padding: 10px 30px;
+    border-radius: 50%;
+    background: var(--Amarillo, #F7DC6F);
+    max-width: min-content;
+    font-size: 90px;
+    color: var(--Azul-oscuro, #2C3E50);
+}
+
+.titulo-modal{
+    color: var(--Azul-oscuro, #2C3E50);
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.contenido-modal{
+    display: flex;
+    justify-content: center;
+} 
+
+.pie-modal{
+    color: #F39C12;
+    margin-top: 5px;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: "center";
+    font-family: "Inter";
+    font-style: normal;
+}
+
+.modal-pie{
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    
+}

@@ -24,7 +24,9 @@ function Transferencia() {
                 </div>
                 <div className="row mt-5 ps-5">
                     <div className="col-5">
-                        <Target texto="Transferir a un Alias, CBU o CVU" />
+                        <Target texto="Transferir a un Alias, CBU o CVU" 
+                            enlace='/FormularioTransferir'
+                        />
                     </div>
                     <div className="col-5">
                         <Target texto="Programar transferencia" />

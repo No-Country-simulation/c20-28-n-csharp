@@ -2,7 +2,7 @@
     position: relative;
 }
 
-input {
+.inputFloat,.inputNumber{
     border: 2px solid #2C3E50;
     border-radius: 4px;
     padding: 10px;
@@ -17,7 +17,7 @@ input:focus {
 }
 
 
-select {
+.select {
     border: 2px solid #2C3E50;
     border-radius: 4px;
     padding: 10px;
@@ -28,11 +28,23 @@ select {
     height: 80px;
 }
 
-select:focus {
+.select:focus {
     border: 2px solid #F39C12;
 }
 
-label {
+.label-input {
+    background: white;
+    padding: 0 4px; 
+    color: #2C3E50;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Inter";
+    font-weight: 500;
+    font-style: normal;
+    position: absolute;
+}
+
+label{
     background: white;
     padding: 0 4px; 
     color: #2C3E50;
@@ -43,14 +55,28 @@ label {
     font-style: normal;
 }
 
-select:focus + label,
-select:not(:placeholder-shown) + label {
+.select:focus + .label-input,
+.select:not(:placeholder-shown) + .label-input {
     top: -10px;
     left: 10px;
     color: #2C3E50;
 }
 
-select option{
+.inputNumber:focus + .label-input,
+.inputNumber:not(:placeholder-shown) + .label-input {
+    top: -10px;
+    left: 10px;
+    color: #2C3E50;
+}
+
+.inputFloat:focus + .label-input,
+.inputFloat:not(:placeholder-shown) + .label-input {
+    top: -10px;
+    left: 10px;
+    color: #2C3E50;
+}
+
+.select option{
     color: #79747E;
 }
 
@@ -58,7 +84,7 @@ select option{
     height: 160px;
     font-size: 60px;
     color: var(--Azul-oscuro, #2C3E50);
-    font-family: Roboto;
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     padding: 0px 50px ;

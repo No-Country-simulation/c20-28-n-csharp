@@ -41,8 +41,8 @@ export function InputField({ name, value, type, placeholder, onChange }) {
 export function InputFloat(props) {
     return (
         <div className="input-container">
-            <input type="text" id="input" required />
-            <label for="input">{props.label}</label>
+            <input type="text" id="inputFloat" className="inputFloat" required />
+            <label className="label-input" forHtml="inputFloat">{props.label}</label>
         </div>
     );
 }
@@ -50,13 +50,13 @@ export function InputFloat(props) {
 export function SelectFloat(props) {
     return (
         <div className="input-container">
-            <select type="select" id="input" required>
+            <select type="select" className="select" id="select" required>
                 <option>Varios</option>
                 <option>1</option>
                 <option>1</option>
                 <option>1</option>
             </select>
-            <label for="input">{props.label}</label>
+            <label className="label-input" forHtml="select">{props.label}</label>
         </div>
     );
 }
@@ -64,8 +64,8 @@ export function SelectFloat(props) {
 export function InputNumber(props) {
     return (
         <div className="input-container">
-            <input type="number" id="inputNumber" required />
-            <label for="inputNumber">{props.label}</label>
+            <input type="number" className="inputNumber" id="inputNumber" required />
+            <label className="label-input" forHtml="inputNumber">{props.label}</label>
         </div>
     );
 }

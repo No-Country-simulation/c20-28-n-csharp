@@ -11,6 +11,7 @@ import Transferencia from "./pages/Transferencias/Transferencia";
 import Account from "./pages/Informacion/Account";
 import FormularioTransferir from "./pages/Transferencias/FormularioTransferir";
 import FormularioTransferir2 from "./pages/Transferencias/FormularioTransferir2";
+import ConfirmarTransferencia from "./pages/Transferencias/ConfirmarTransferencia";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: '/FormularioTransferir2',
     element: <FormularioTransferir2/>,
+  },
+  {
+    path: '/ConfirmarTransferencia',
+    element: <ConfirmarTransferencia/>,
   },
   
 ])

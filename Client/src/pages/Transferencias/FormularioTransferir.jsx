@@ -1,8 +1,11 @@
 import { InputFloat } from "../../Components/Inputs/Inputs";
 import SideBar from "../../Components/Side-bar/SideBar";
 import { Header } from "../../Components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 function FormularioTransferir(){
+    const navigate = useNavigate();
+
     return(
         <div className="row">
             <aside className="col-2">
@@ -36,7 +39,7 @@ function FormularioTransferir(){
                 </div>
                 <div className="row mt-5 justify-content-center pe-5 me-5">
                     <div className="col-4 text-center">
-                        <button className="btn btn-lg mt-5" style={{ backgroundColor: "#F39C12", width: "70%", borderRadius: "6px", color: "white", fontSize: "20px", fontWeight: "500" }}>
+                        <button className="btn btn-lg mt-5" onClick={()=>navigate('/FormularioTransferir2')} style={{ backgroundColor: "#F39C12", width: "70%", borderRadius: "6px", color: "white", fontSize: "20px", fontWeight: "500" }}>
                             CONTINUAR
                         </button>
                     </div>
