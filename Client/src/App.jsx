@@ -2,13 +2,12 @@ import Login from "./pages/Login/index";
 import PageMain from "./pages/pageMain"
 import Recuperar from "./pages/Recuperar";
 import Info from "./pages/Informacion";
-import User from "./pages/User";
 import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Register } from "./pages/Registro";
 import NotFound from "./pages/ErrorPage";
 import Inicio from "./pages/Inicio";
 import Transferencia from "./pages/Transferencias/Transferencia";
-import Account from "./pages/Informacion/Account";
+import {Account} from "./pages/Informacion/Account";
 import FormularioTransferir from "./pages/Transferencias/FormularioTransferir";
 import FormularioTransferir2 from "./pages/Transferencias/FormularioTransferir2";
 import ConfirmarTransferencia from "./pages/Transferencias/ConfirmarTransferencia";
@@ -21,10 +20,6 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
-  },
-  {
-    path: '/User',
-    element: <User />,
   },
   {
     path: '/Register',
