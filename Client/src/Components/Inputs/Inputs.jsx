@@ -12,7 +12,6 @@ export function InputCheck({ name, value, type, onChange, ...props }) {
                 className="form-control text-capitalize"
                 id={name}
                 name={name}
-                placeholder={name}
                 value={value}
                 onChange={onChange}
                 {...props}

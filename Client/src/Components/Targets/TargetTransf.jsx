@@ -7,11 +7,15 @@ export function Target(props) {
 
     return (
 
+        <>
+        <p className="fw-bold fs-3">Tranferencias</p>
         <div className="card-container d-flex align-items-center my-2 mx-2" onClick={() => navigate(props.enlace)}>
             <div className="cuadro me-3">
             </div>
             <div className="text">{props.texto}</div>
         </div>
+        </>
+        
 
     );
 

@@ -5,7 +5,7 @@ import './SideBar.css';
 
 export default function SideBar() {
     const links = [
-        { to: '/', text: 'Inicio' },
+        { to: '/inicio', text: 'Inicio' },
         { to: '/cuenta', text: 'Cuenta' },
         { to: '/transferencia', text: 'Transferencias' },
         { to: '/pago_servicios', text: 'Pago de Servicios' },

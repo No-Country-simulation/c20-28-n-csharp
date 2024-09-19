@@ -9,7 +9,7 @@ function PageMani(){
       { to: "/register", text: "Registro" },
       { to: "/transferencia", text: "transferencia" },
       { to: "/cuenta", text: "cuenta" },
-    ];
+    ]; 
 
     return (
       <>
