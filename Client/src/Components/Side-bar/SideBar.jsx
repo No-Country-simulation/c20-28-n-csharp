@@ -11,7 +11,7 @@ export default function SideBar() {
         { to: '/pago_servicios', text: 'Pago de Servicios' },
         { to: '/gestion_gastos', text: 'Gestión de Gastos' },
         { to: '/ayuda', text: 'Ayuda' },
-        { to: '/cerrar_sesion', text: 'Cerrar Sesión' },
+        { to: '/', text: 'Cerrar Sesión' },
         ];
     return (
         <div className="d-flex flex-column flex-shrink-0 p-3 side-bar">
