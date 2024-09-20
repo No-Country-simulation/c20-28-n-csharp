@@ -5,8 +5,15 @@ import Saldo from '../../Components/Saldo';
 import { BtnSearch, CardContactos, Target } from "../../Components/Targets/TargetTransf";
 import Servicio from '../../Components/Servicio';
 import AccountMoves from '../../Components/Targets/AccountMoves';
+import { useFetchWithToken } from "../../assets/useFetch";
 
 function Inicio() {
+
+    const token = localStorage.getItem("token");
+    const url = "https://bankest.somee.com/api/Cliente/GetCuentas";
+    const {data} = useFetchWithToken(url,token);
+
+
     return (
         <div>
             <div className="row">
@@ -19,7 +26,12 @@ function Inicio() {
                     />
                     <div className="row mx-5">
                         <div className="col-6">
-                            <Saldo/>
+                            {data?.map((usuario, index)=>(
+                            <Saldo
+                                key={index}
+                                saldo={usuario.saldo}
+                            />))}
+                            
                         </div>
                         <div className="col-6 d-flex flex-column justify-content-end">
                         <Target texto="Transferir a un Alias, CBU o CVU" 

@@ -46,7 +46,7 @@ function Login() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           const token = localStorage.getItem("token");
-          navigate('/Cuenta')
+          navigate('/Inicio')
 
         } else {
           console.log("No se recibió token");

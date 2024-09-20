@@ -5,7 +5,6 @@ import Target from "../../Components/Targets/Target";
 import { Header } from "../../Components/Header/Header";
 import { useState, useEffect } from "react";
 import { useFetchWithToken } from "../../assets/useFetch";
-import Saldo from "../../Components/Saldo";
 
 
 export function Account() {
