@@ -1,5 +1,5 @@
 import Login from "./pages/Login/index";
-import PageMain from "./pages/pageMain"
+// import PageMain from "./pages/pageMain"
 import Recuperar from "./pages/Recuperar";
 // import Info from "./pages/Informacion";
 import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -12,11 +12,12 @@ import FormularioTransferir from "./pages/Transferencias/FormularioTransferir";
 import FormularioTransferir2 from "./pages/Transferencias/FormularioTransferir2";
 import ConfirmarTransferencia from "./pages/Transferencias/ConfirmarTransferencia";
 import GestionGastos from "./pages/GestionGastos";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PageMain />,
+    element: <Home />,
   },
   {
     path: '/login',
