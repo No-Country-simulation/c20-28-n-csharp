@@ -80,6 +80,27 @@ export default function Home() {
                     Ofrecemos una plataforma que te permite administrar todas tus finanzas en un solo lugar, con herramientas diseñadas para facilitar la planificación, seguimiento y optimización de tus recursos.</p>
                 </div>
             </section>
+            <section className='row w-100 g-5 mt-5'>
+                <div className="card tarjeta col-4 h-25">
+                    <div className="card-body">
+                        <p className='fs-1 fw-bold'>+260M</p>
+                        <p className="card-text">Nuestro paso a paso para simplificar tu
+                        gestión financiera.</p>
+                        <div className="circle-container">
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-8">
+                    <div className="img-chicos">
+                    </div>
+                </div>
+            </section>
         </main>
             
         </>
