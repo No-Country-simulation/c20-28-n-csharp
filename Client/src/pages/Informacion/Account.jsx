@@ -42,10 +42,6 @@ export function Account() {
                          </div>
                          <div className="row">
                               <div className="col-6">
-                                   
-                                   <Saldo/>
-                              </div>
-                              <div className="col-6">
                                    {data?.map((usuario, index) => (                                      
                                         <InfoAccount 
                                         key={index}
@@ -57,8 +53,11 @@ export function Account() {
                                         id={usuario.usuario.id}                                   
                                         />
                                    ))}
-                                   <AccountMoves />
+                                   
 
+                              </div>
+                              <div className="col-6">
+                              <AccountMoves />
                               </div>
                          </div>
                     </div>
