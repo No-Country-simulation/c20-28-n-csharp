@@ -49,7 +49,7 @@ function InfoAccount(props) {
                 :
                 <>
                     <div className="tarjeta-carton bg-black d-flex justify-content-center align-content-center flex-column p-5">
-                        <i className="fa-regular fa-eye" onClick={() => setShowDataTarget(true)}></i>
+                        <i className="fa-regular fa-eye" onClick={() => setShowDataTarget(true)} style={{color:"white",alignSelf:"end",marginTop:"20px"}}></i>
                         <img className='pajarito_logo img img-fluid ' src="/src/assets/pajarito_logo.png" alt="pajarito" />
                         <h3 className='mb-4 mt-4'>******* ******</h3>
                         <p>Vto: *********</p>
