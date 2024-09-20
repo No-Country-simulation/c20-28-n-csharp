@@ -1,0 +1,56 @@
+/*Movimientos de la cuenta*/
+.container {
+    margin-top: 0.5rem;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.table{
+    border: #f3f3f3;
+}
+
+.table th,
+.table td{
+    font-family: 'Inter', sans-serif;
+    font-size: normal;
+    color: #2c3e50;
+}
+
+thead th {
+  background-color: #f3f3f3;
+}
+
+
+thead th.text-center{
+    color: #2c3e50;
+    font-size: 22px;
+}
+
+tbody th{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+tbody th.fa-paper-plane{
+    font-size: 18px;
+}
+
+tbody tp p{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+tbody tp h6{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.foot-text{
+    margin-top: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
