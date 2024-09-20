@@ -134,6 +134,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 // Aplica la política de CORS
 app.UseCors("NuevaPolitica");
 app.UseHttpsRedirection();

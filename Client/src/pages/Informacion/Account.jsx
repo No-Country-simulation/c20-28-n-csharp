@@ -1,10 +1,11 @@
 import InfoAccount from "../../Components/Targets/InfoAccount";
 import AccountMoves from "../../Components/Targets/AccountMoves";
 import SideBar from "../../Components/Side-bar/SideBar";
-import { CardTransfer } from "../../Components/Targets/TargetTransf";
+import { CardTransfer, Target } from "../../Components/Targets/TargetTransf";
 import { Header } from "../../Components/Header/Header";
 import { useState, useEffect } from "react";
 import { useFetchWithToken } from "../../assets/useFetch";
+import Saldo from "../../Components/Saldo";
 
 
 export function Account() {
@@ -28,7 +29,7 @@ export function Account() {
      
      
      return (
-          <div className="container-fluid">
+          <div>
                <div className="row">
                     <div className="aside col-2">
                          <SideBar />
@@ -39,9 +40,12 @@ export function Account() {
                                    tituloPagina="Cuenta"
                               />
                          </div>
-                         <div className="row me-5 px-5">
-                              <div className="col-5">
+                         <div className="row">
+                              <div className="col-6">
                                    
+                                   <Saldo/>
+                              </div>
+                              <div className="col-6">
                                    {data?.map((usuario, index) => (                                      
                                         <InfoAccount 
                                         key={index}
@@ -53,10 +57,8 @@ export function Account() {
                                         id={usuario.usuario.id}                                   
                                         />
                                    ))}
-                                   
-                              </div>
-                              <div className="col-7">
                                    <AccountMoves />
+
                               </div>
                          </div>
                     </div>

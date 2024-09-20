@@ -43,25 +43,42 @@ namespace Bankest.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequestDto)
         {
-            _logger.LogInformation("Intento de inicio de sesión para el usuario {UserName}", loginRequestDto.UserName);
-
-            var user = await _userManager.FindByNameAsync(loginRequestDto.UserName);
-            if (user == null)
+            try
             {
-                _logger.LogWarning("El usuario {UserName} no fue encontrado.", loginRequestDto.UserName);
+                _logger.LogInformation("Intento de inicio de sesión para el usuario {UserName}", loginRequestDto.UserName);
+
+                var user = await _userManager.FindByNameAsync(loginRequestDto.UserName);
+                if (user == null)
+                {
+                    _logger.LogWarning("El usuario {UserName} no fue encontrado.", loginRequestDto.UserName);
+                    return Unauthorized("Invalid username or password.");
+                }
+
+                if (await _userManager.CheckPasswordAsync(user, loginRequestDto.Password))
+                {
+                    _logger.LogInformation("El usuario {UserName} se autenticó correctamente.", user.UserName);
+                    var token = await _tokenServices.GenerateToken(user);
+                    return Ok(new { token });
+                }
+
+                _logger.LogWarning("El usuario {UserName} proporcionó una contraseña incorrecta.", user.UserName);
                 return Unauthorized("Invalid username or password.");
             }
-
-            if (await _userManager.CheckPasswordAsync(user, loginRequestDto.Password))
+            catch (Exception ex)
             {
-                _logger.LogInformation("El usuario {UserName} se autenticó correctamente.", user.UserName);
-                var token = await _tokenServices.GenerateToken(user);
-                return Ok(new { token });
-            }
+                // Registrar el error con detalles
+                _logger.LogError(ex, "Ocurrió un error durante el intento de inicio de sesión para el usuario {UserName}", loginRequestDto.UserName);
 
-            _logger.LogWarning("El usuario {UserName} proporcionó una contraseña incorrecta.", user.UserName);
-            return Unauthorized("Invalid username or password.");
+                // Devolver detalles del error al cliente
+                return StatusCode(500, new
+                {
+                    Message = "Ocurrió un error inesperado.",
+                    Error = ex.Message,
+                    StackTrace = ex.StackTrace
+                });
+            }
         }
+
 
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto registerDto)

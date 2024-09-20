@@ -13,7 +13,8 @@
             public string? TelefonoDestinatario { get; set; }
             public decimal Monto { get; set; }
             public string? Mensaje {  get; set; }
-        
+             public string? AliasDestino { get; set; }
+
 
     }
 

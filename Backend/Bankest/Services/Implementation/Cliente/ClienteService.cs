@@ -29,44 +29,38 @@ namespace Bankest.Services.Implementation.Cliente
 
         public async Task<UsuarioDto?> ObtenerdatosClienteAsync(Guid clientId)
         {
-            try
+            // Obtener el usuario por su ID e incluir información relacionada como cuentas bancarias
+            var cliente = await _storeContext.Usuarios
+                .Include(u => u.CuentasBancarias)  // Incluir las cuentas bancarias asociadas
+                .FirstOrDefaultAsync(u => u.Id == clientId);
+
+            if (cliente == null)
             {
-                // Obtener el usuario por su ID e incluir información relacionada como cuentas bancarias
-                var cliente = await _storeContext.Usuarios
-                    .Include(u => u.CuentasBancarias)  // Incluir las cuentas bancarias asociadas
-                    .FirstOrDefaultAsync(u => u.Id == clientId);
-
-                if (cliente == null)
-                {
-                    throw new Exception("Cliente no encontrado.");
-                }
-
-                // Mapeo de Usuario a UsuarioDto
-                var response = new UsuarioDto
-                {
-                    Id = cliente.Id,
-                    Nombre = cliente.Nombre,
-                    ApellidoPaterno = cliente.ApellidoPaterno,
-                    ApellidoMaterno = cliente.ApellidoMaterno,
-                    Email = cliente.Email,
-                    PhoneNumber = cliente.PhoneNumber,
-                    CuentasBancarias = cliente.CuentasBancarias.Select(c => new CuentaBancariaDto
-                    {
-                        Id = c.Id,
-                        NumeroCuenta = c.NumeroCuenta,
-                        Saldo = c.Saldo,
-                        //TipoCuenta = c.TipoCuenta()  // Si `TipoCuenta` es un enum, conviértelo a string
-                    }).ToList()
-                };
-
-                return response;
+                // Return null or a specific result indicating not found
+                return null;
             }
-            catch (Exception ex)
+
+            // Mapeo de Usuario a UsuarioDto
+            var response = new UsuarioDto
             {
-                // Manejo de excepciones en caso de fallo
-                throw new Exception("Ocurrió un error al obtener los datos del cliente.");
-            }
+                Id = cliente.Id,
+                Nombre = cliente.Nombre,
+                ApellidoPaterno = cliente.ApellidoPaterno,
+                ApellidoMaterno = cliente.ApellidoMaterno,
+                Email = cliente.Email,
+                PhoneNumber = cliente.PhoneNumber,
+                CuentasBancarias = cliente.CuentasBancarias.Select(c => new CuentaBancariaDto
+                {
+                    Id = c.Id,
+                    NumeroCuenta = c.NumeroCuenta,
+                    Saldo = c.Saldo,
+                    //TipoCuenta = c.TipoCuenta()  // Si `TipoCuenta` es un enum, conviértelo a string
+                }).ToList()
+            };
+
+            return response;
         }
+
 
         public async Task<CuentaBancaria> ObtenerCuentaAsync(Guid cuentaId)
         {
