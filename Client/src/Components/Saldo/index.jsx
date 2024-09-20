@@ -1,4 +1,4 @@
-export default function Saldo({saldo=0}) {
+export default function Saldo({saldo}) {
     return(
         <div className="account-balance">
                 <h3 className="title">Cuenta Ahorro en pesos</h3>
@@ -7,8 +7,8 @@ export default function Saldo({saldo=0}) {
                                            
                     </div>
                     <div className="value-b">
-                        $&nbsp;1.000<sup>
-                            60
+                        $&nbsp;{saldo}<sup>
+                            00
                         </sup>
                     </div>
                 </div>

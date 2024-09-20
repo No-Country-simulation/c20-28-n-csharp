@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "../../styles/infoAccount.css";
+import "./Targets.css";
 
 function InfoAccount(props) {
     const [show, setShow] = useState(true);
@@ -27,41 +28,36 @@ function InfoAccount(props) {
         
 
             <div className="Account-data">
-                <h3 className="title">Datos de la cuenta&nbsp;&nbsp;<i className="icon fa-solid fa-clone"></i></h3>
+                <h3 className="title">Datos de la cuenta&nbsp;&nbsp;<i class="fa-regular fa-copy"></i></h3>
                 <span>CBU: {props.numeroCuenta}</span>
                 <span>Alias: SILLA.PLATO.TELE</span>
                 <span>Titular de cuenta: {props.nombre} {props.apellidoPaterno} {props.apellidoMaterno}</span>
             </div>
-            <div className="Target-data">
-                <h3 className="title">Tarjeta</h3>
-                <div className="square-target">
-                    {showDataTarget ? <div className="icono">
-                        <i className="fa-solid fa-eye-slash" onClick={()=>setShowDataTarget(!showDataTarget)}></i>
-                        </div> 
-                        :
-                        <div className="icono">
-                            <i className="fa-solid fa-eye" onClick={()=>setShowDataTarget(true)}></i>
-                        </div>
-                    }
 
-                    {showDataTarget? <div className="target-v">
-                        
-                        <span>{props.nombre}&nbsp;{props.apellidoPaterno}</span>
-                        <span>08/26</span>
-                        <span>{props.id}</span>
-                    </div>
-                    :
-                    <div className="target-v">
-                        
-                        <span>*****&nbsp;*****</span>
-                        <span>*****</span>
-                        <span>**** **** **** ****</span>
-                    </div>
-                }
-                                     
-                    
+            
+            <div className="Tarjeta mt-5">
+            <h3>Tarjeta</h3>
+            {showDataTarget ? <>
+                <div className="tarjeta-carton bg-black d-flex justify-content-center align-content-center flex-column p-5">
+                    <i className="fa-regular fa-eye-slash" onClick={() => setShowDataTarget(!showDataTarget)}></i>
+                    <img className='pajarito_logo img img-fluid ' src="/src/assets/pajarito_logo.png" alt="pajarito" />
+                    <h3 className='mb-4 mt-4'>{props.nombre} {props.apellidoPaterno} {props.apellidoMaterno}</h3>
+                    <p>Vto: {props.fecha_venc}</p>
+                    <p>{props.nro}</p>
                 </div>
-                <h3 className="foot-text">VER DORSO</h3>
+            </>
+                :
+                <>
+                    <div className="tarjeta-carton bg-black d-flex justify-content-center align-content-center flex-column p-5">
+                        <i className="fa-regular fa-eye" onClick={() => setShowDataTarget(true)}></i>
+                        <img className='pajarito_logo img img-fluid ' src="/src/assets/pajarito_logo.png" alt="pajarito" />
+                        <h3 className='mb-4 mt-4'>******* ******</h3>
+                        <p>Vto: *********</p>
+                        <p>*******</p>
+                    </div>
+
+                </>
+            }
             </div>
 
         </div>

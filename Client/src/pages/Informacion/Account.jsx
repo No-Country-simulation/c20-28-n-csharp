@@ -42,20 +42,6 @@ export function Account() {
                          </div>
                          <div className="row">
                               <div className="col-6">
-                                   
-                                   <Saldo /> 
-                                   <div className="mt-5">
-                                        <h3>Datos de la cuenta <i class="fa-regular fa-copy"></i></h3>
-                                        <p>CBU: 00340182795346</p>
-                                        <p>Alias: SILLA.PLATO.TELE</p>
-                                        <p>Titular de cuenta: Juan Perez</p>
-                                   </div>
-                                   <div className="Tarjeta mt-5">
-                                        <h3>Tarjeta</h3>
-                                        <Target nombre="Juana Terra" fecha_venc="08/26" nro="0000 8061 3401 8279" cvv="043" />
-                                   </div>
-                              </div>
-                              <div className="col-6">
                                    {data?.map((usuario, index) => (                                      
                                         <InfoAccount 
                                         key={index}
@@ -64,9 +50,14 @@ export function Account() {
                                         nombre={usuario.usuario.nombre}
                                         apellidoMaterno={usuario.usuario.apellidoMaterno}
                                         apellidoPaterno={usuario.usuario.apellidoPaterno} 
-                                        id={usuario.usuario.id}                                   
+                                        id={usuario.usuario.id} 
+                                        fecha_venc="18/26"  
+                                        nro="0000 8061 3401 8279"                                
                                         />
                                    ))}
+                              
+                              </div>
+                              <div className="col-6">
                               <AccountMoves />
                               </div>
                          </div>
