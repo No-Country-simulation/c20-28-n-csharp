@@ -41,8 +41,8 @@ export function InputField({ name, value, type, placeholder, onChange }) {
 export function InputFloat(props) {
     return (
         <div className="input-container">
-            <input type="text" id="inputFloat" className="inputFloat" required />
-            <label className="label-input" forHtml="inputFloat">{props.label}</label>
+            <input type={props.type} name={props.name} id={props.id} value={props.value} onChange={props.onChange} className="inputFloat" required />
+            <label className="label-input" forHtml={props.id}>{props.label}</label>
         </div>
     );
 }

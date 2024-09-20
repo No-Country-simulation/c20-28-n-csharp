@@ -3,8 +3,32 @@ import SideBar from "../../Components/Side-bar/SideBar";
 import { CardTransfer } from "../../Components/Targets/TargetTransf";
 import { Header } from "../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function FormularioTransferir2(){
+
+    const token = localStorage.getItem("token");
+    const url = "https://bankest.somee.com/api/Cliente/GetCuentas";
+
+    const {data} = useFetchWithToken(url,token);
+    localStorage.setItem( "user", JSON.stringify(data));
+    const user = localStorage.getItem("user");
+    console.log(user);
+    
+    const userActual = localStorage.getItem("id",)
+    const [bodyPeticion,setBody] = useState();
+    /*{
+        "cuentaOrigenId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "numeroCuentaDestino": "string",
+        "nombreDestinatario": "string",
+        "apellidoPaternoDestinatario": "string",
+        "apellidoMaternoDestinatario": "string",
+        "correoDestinatario": "string",
+        "telefonoDestinatario": "string",
+        "monto": 0,
+        "mensaje": "string"
+      }*/
+
     const navigate = useNavigate();
     return(
         <div className="row">

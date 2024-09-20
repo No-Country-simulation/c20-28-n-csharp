@@ -11,10 +11,21 @@ export function Account() {
 
      const token = localStorage.getItem("token");
      const url = "https://bankest.somee.com/api/Cliente/GetCuentas";
+     const urlMovimientos = "https://bankest.somee.com/api/Transacciones/historial/";
+
+     /*?CuentaId=a0f4248d-5df4-480f-a019-4b33298249f0&FechaInicio=2024-08-07 00:00:00&FechaFin=2024-09-30 00:00:00*/
 
      const {data} = useFetchWithToken(url,token);
+     localStorage.setItem( "user", JSON.stringify(data));
+     const user = localStorage.getItem("user");
+     
+     console.log("id: ", user);    
+         
 
-     console.log("saldo: ", data);
+     const {dataMovements} = useFetchWithToken(urlMovimientos+'?CuentaId='+ user[0].id +'&FechaInicio=2024-08-07 00:00:00&FechaFin=2024-09-30 00:00:00',token);
+     const lista = JSON.stringify(dataMovements)
+     console.log(lista);
+     
      
      return (
           <div className="container-fluid">

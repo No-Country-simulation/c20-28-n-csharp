@@ -1,7 +1,7 @@
 import Login from "./pages/Login/index";
 import PageMain from "./pages/pageMain"
 import Recuperar from "./pages/Recuperar";
-import Info from "./pages/Informacion";
+// import Info from "./pages/Informacion";
 import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Register } from "./pages/Registro";
 import NotFound from "./pages/ErrorPage";
@@ -32,10 +32,6 @@ const router = createBrowserRouter([
   {
     path: '/Inicio',
     element: <Inicio />,
-  },
-  {
-    path: '/Info',
-    element: <Info />,
   },
   {
     path: '*',

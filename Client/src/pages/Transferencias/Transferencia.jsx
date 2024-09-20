@@ -5,6 +5,8 @@ import { Header } from "../../Components/Header/Header";
 
 function Transferencia() {
 
+    
+
     const columnas = ['Fecha', 'Destinatario', 'Monto', 'Estado'];
     const datos = [
         { Fecha: '13/08/24', Destinatario: 'Alberta Flores', Monto: '$150.000,00', Estado: 'Realizada' },
