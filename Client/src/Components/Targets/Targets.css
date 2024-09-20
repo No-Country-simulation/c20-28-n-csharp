@@ -1,0 +1,61 @@
+.tarjeta-carton{
+    width: 318px;
+    height: 155px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: linear-gradient(to bottom right, #1E2C3A 0%, #2F4B68 50%) bottom right / 50% 50% no-repeat, linear-gradient(to bottom left, #1E2C3A 0%, #2F4B68 50%) bottom left / 50% 50% no-repeat, linear-gradient(to top left, #1E2C3A 0%, #2F4B68 50%) top left / 50% 50% no-repeat, linear-gradient(to top right, #1E2C3A 0%, #2F4B68 50%) top right / 50% 50% no-repeat;
+    position: relative;
+}
+.tarjeta-carton h3{
+    color: var(--Blanco, #FFF);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.tarjeta-carton p{
+    color: var(--Blanco, #FFF);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.tarjeta-carton::after{
+    content: 'ver dorso';
+    text-transform: uppercase;
+    color: var(--Naranja, #F39C12);
+    text-align: right;
+
+    /* Botones secundarios naranja */
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.30);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: var(--Title-Large-Line-Height, 28px); /* 155.556% */
+    letter-spacing: var(--Title-Large-Tracking, 0px);
+
+    /*Posicionamiento*/
+    position: absolute;
+    bottom: -20%;
+    right: 50%;
+    transform: translate(50%, 0);
+}
+.tarjeta-carton .fa-eye-slash{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--Blanco, #FFF);
+}
+.tarjeta-carton .pajarito_logo{
+
+    /*Posicionamiento*/
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    width: 4.3vmin;
+    height: 4.3vmin;
+}

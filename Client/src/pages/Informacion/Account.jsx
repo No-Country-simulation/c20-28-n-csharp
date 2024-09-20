@@ -1,7 +1,7 @@
 import InfoAccount from "../../Components/Targets/InfoAccount";
 import AccountMoves from "../../Components/Targets/AccountMoves";
 import SideBar from "../../Components/Side-bar/SideBar";
-import { CardTransfer, Target } from "../../Components/Targets/TargetTransf";
+import Target from "../../Components/Targets/Target";
 import { Header } from "../../Components/Header/Header";
 import { useState, useEffect } from "react";
 import { useFetchWithToken } from "../../assets/useFetch";
@@ -37,10 +37,24 @@ export function Account() {
                     <div className="col-10 px-5">
                          <div className="row">
                               <Header
-                                   tituloPagina="Cuenta"
+                                        tituloPagina="Cuenta"
                               />
                          </div>
                          <div className="row">
+                              <div className="col-6">
+                                   
+                                   <Saldo /> 
+                                   <div className="mt-5">
+                                        <h3>Datos de la cuenta <i class="fa-regular fa-copy"></i></h3>
+                                        <p>CBU: 00340182795346</p>
+                                        <p>Alias: SILLA.PLATO.TELE</p>
+                                        <p>Titular de cuenta: Juan Perez</p>
+                                   </div>
+                                   <div className="Tarjeta mt-5">
+                                        <h3>Tarjeta</h3>
+                                        <Target nombre="Juana Terra" fecha_venc="08/26" nro="0000 8061 3401 8279" cvv="043" />
+                                   </div>
+                              </div>
                               <div className="col-6">
                                    {data?.map((usuario, index) => (                                      
                                         <InfoAccount 
@@ -53,10 +67,6 @@ export function Account() {
                                         id={usuario.usuario.id}                                   
                                         />
                                    ))}
-                                   
-
-                              </div>
-                              <div className="col-6">
                               <AccountMoves />
                               </div>
                          </div>
