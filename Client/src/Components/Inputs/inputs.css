@@ -9,6 +9,7 @@
 }
 .input-field input{
     border: 2px solid var(--bs-secondary);
+    padding: 0.7rem;
 }
 .input-field input:focus{
     border: 2px solid var(--naranja);

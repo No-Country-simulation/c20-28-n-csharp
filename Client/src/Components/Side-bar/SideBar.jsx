@@ -9,7 +9,7 @@ export default function SideBar() {
         { to: '/cuenta', text: 'Cuenta' },
         { to: '/transferencia', text: 'Transferencias' },
         { to: '/pago_servicios', text: 'Pago de Servicios' },
-        { to: '/gestion_datos', text: 'Gestión de Datos' },
+        { to: '/gestion_gastos', text: 'Gestión de Gastos' },
         { to: '/ayuda', text: 'Ayuda' },
         { to: '/cerrar_sesion', text: 'Cerrar Sesión' },
         ];

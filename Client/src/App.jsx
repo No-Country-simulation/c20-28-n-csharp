@@ -11,6 +11,7 @@ import {Account} from "./pages/Informacion/Account";
 import FormularioTransferir from "./pages/Transferencias/FormularioTransferir";
 import FormularioTransferir2 from "./pages/Transferencias/FormularioTransferir2";
 import ConfirmarTransferencia from "./pages/Transferencias/ConfirmarTransferencia";
+import GestionGastos from "./pages/GestionGastos";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
     path: '/ConfirmarTransferencia',
     element: <ConfirmarTransferencia/>,
   },
+  {
+    path: '/Gestion_Gastos',
+    element: <GestionGastos />,
+  }
   
 ])
 function App() {
