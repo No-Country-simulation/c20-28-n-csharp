@@ -1,0 +1,12 @@
+.img-servicio{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.img-servicio__container{
+    width: 7rem;
+    height:7rem;
+    padding: 1px;
+}
