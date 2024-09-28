@@ -1,4 +1,4 @@
-<h1 align="center">Hola 👋, somos Bankest</h1>
+<h1 align="center">Hola 👋, somos Bankster </h1>
 <p align="justify" style="font-weight:300 ;">La aplicación móvil mejorará la administración financiera personal mediante una banca digital. Permitirá a los usuarios gestionar sus finanzas de manera eficiente y segura, combinando la comodidad de la banca digital con herramientas innovadoras de gestión y asesoramiento financiero. <br>
 
 <h4 align="center">Características Principales</h4>
